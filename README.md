@@ -1,1 +1,2 @@
 # vue-mintui
+# init
