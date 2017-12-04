@@ -15,6 +15,8 @@ import Free from './components/Pages/Home/Free.vue';
 import Trade from './components/Pages/Trade.vue';
 import CurrentList from './components/Pages/Transition/CurrentList.vue';
 import HistoryList from './components/Pages/Transition/HistoryList.vue';
+
+import Http from './services/httpService';
 import {
     Tabbar,
     TabItem,
@@ -32,6 +34,7 @@ Vue.component(Header.name, Header);
 Vue.component(Button.name, Button);
 
 Vue.use(Router);
+Vue.use(Http);
 
 const router = new Router({
     routes: [{
@@ -64,7 +67,7 @@ const router = new Router({
         path: '/page',
         component: Page,
         children: [{
-            path: 'home/free',
+            path: 'home/free/:id',
             component: Free
         }, {
             path: 'home/activity',

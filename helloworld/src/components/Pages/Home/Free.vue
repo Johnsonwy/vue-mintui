@@ -1,14 +1,28 @@
 <template>
-    <div>{{msg}}</div>
+    <div>{{msg}}
+        <div>{{ $route.params.id }}</div>
+    </div>
 </template>
 
 <script>
+
 export default {
     name: 'Free',
-    data () {
+    data() {
         return {
             msg: 'Free'
         }
+    },
+    created: function () {
+        console.log(this.$route);
+        this.$http.request({ url: '/user/getbalance', method: 'post' }).then(function (data) {
+            console.log(data);
+        }, function (error) {
+            console.log(error);
+        })
+    },
+    destroyed: function () {
+        console.log(88);
     }
 }
 </script>

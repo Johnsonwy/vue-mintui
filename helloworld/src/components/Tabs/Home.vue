@@ -2,7 +2,7 @@
     <div>
         {{msg}}
         <div>
-            <router-link to="/page/home/free">免费体验</router-link>
+            <router-link to="/page/home/free/123">免费体验</router-link>
             <router-link to="/page/home/activity">活动中心</router-link>
         </div>
     </div>
@@ -11,7 +11,7 @@
 <script>
 export default {
     name: 'Home',
-    data () {
+    data() {
         return {
             msg: 'Home'
         }

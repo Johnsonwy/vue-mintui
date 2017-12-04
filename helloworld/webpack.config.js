@@ -7,7 +7,7 @@ module.exports = (env) => {
     return {
         entry: {
             app: './src/main.js',
-            vendor: ['vue', 'vue-router', 'mint-ui']
+            vendor: ['vue', 'vue-router', 'mint-ui', 'axios']
         },
         output: {
             filename: '[name].bundle.js',
