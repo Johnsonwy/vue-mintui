@@ -16,7 +16,11 @@ module.exports = (env) => {
         devtool: 'inline-source-map',
         devServer: {
             contentBase: './dist',
-            port: '4200'
+            port: '4200',
+            // host:'127.0.0.1',
+            proxy: {
+                '/**/*.api': "http://192.168.1.65:8090"
+            }
         },
         // externals: {
         //     'vue': 'Vue',
@@ -48,10 +52,11 @@ module.exports = (env) => {
         module: {
             rules: [{
                 // css
-                test: /\.css$/,
+                test: /\.scss$/,
                 use: [
                     'style-loader',
-                    'css-loader'
+                    'css-loader',
+                    'sass-loader'
                 ]
             }, {
                 test: /\.vue$/,

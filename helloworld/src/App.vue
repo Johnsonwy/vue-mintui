@@ -1,6 +1,8 @@
 <template>
   <div>
-    <router-view></router-view>
+    <transition :name="transitionName">
+      <router-view></router-view>
+    </transition>
   </div>
   </div>
 </template>
@@ -10,7 +12,13 @@ export default {
   name: "app",
   data: function () {
     return {
-      selected: 'Hello world!'
+      selected: 'Hello world!',
+      transitionName: ''
+    }
+  },
+  watch: {
+    '$route' (to, from) {
+      this.transitionName = to.path.indexOf('page') !== -1 ? 'bounceInRight' : '';
     }
   }
 };

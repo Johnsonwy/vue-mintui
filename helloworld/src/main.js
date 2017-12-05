@@ -1,8 +1,13 @@
 // css
+import './scss/index.scss';
+import './scss/aminate.scss';
+
 import Vue from 'vue';
+
 import Router from 'vue-router'
 import App from './App.vue';
 
+import store from './store/store.js';
 // Tabs
 import Tabs from './components/Tabs/Tabs.vue';
 import Home from './components/Tabs/Home.vue';
@@ -10,7 +15,17 @@ import Transition from './components/Tabs/Transition.vue';
 
 // Pages
 import Page from './components/Pages/Page.vue';
-import ActivityCenter from './components/Pages/Home/ActivityCenter.vue';
+// import ActivityCenter from './components/Pages/Home/ActivityCenter.vue';
+// const ActivityCenter = function (r) {
+//     console.log(r);
+//     return require.ensure([], function (require) {
+//         return r(require('./components/Pages/Home/ActivityCenter.vue'))
+//     }, 'ActivityCenter')
+// }
+const ActivityCenter = () => require.ensure([], () => require('./components/Pages/Home/ActivityCenter.vue'), 'ActivtyCenter');
+// const ActivityCenter = () => {
+//     return import ('./components/Pages/Home/ActivityCenter.vue');
+// }
 import Free from './components/Pages/Home/Free.vue';
 import Trade from './components/Pages/Trade.vue';
 import CurrentList from './components/Pages/Transition/CurrentList.vue';
@@ -48,7 +63,10 @@ const router = new Router({
             component: Home
         }, {
             path: 'trade',
-            component: Trade
+            component: Trade,
+            meta: {
+                hideTab: true
+            }
         }, {
             path: 'transition',
             component: Transition,
@@ -76,11 +94,16 @@ const router = new Router({
     }]
 });
 
+router.beforeEach((to, from, next) => {
+    console.log(to.meta);
+    next();
+})
 new Vue({
-    el: '#app',
+    // el: '#app',
     template: '<App></App>',
     router,
     components: {
         App
-    }
-})
+    },
+    store
+}).$mount('#app');

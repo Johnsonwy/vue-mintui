@@ -8,14 +8,13 @@
 
 export default {
     name: 'Free',
-    data() {
+    data () {
         return {
             msg: 'Free'
         }
     },
     created: function () {
-        console.log(this.$route);
-        this.$http.request({ url: '/user/getbalance', method: 'post' }).then(function (data) {
+        this.$http.request({ url: '/user/getbalance.api' }).then(function (data) {
             console.log(data);
         }, function (error) {
             console.log(error);

@@ -9,6 +9,9 @@ export default {
         return {
             msg: 'trade'
         }
+    },
+    created: function () {
+        console.log(this.$router)
     }
 }
 </script>

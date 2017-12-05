@@ -31,6 +31,6 @@ export default {
 
 <style lang="scss">
 .mint-tab-item a {
-  font-size: 20px;
+  font-size: 2rem;
 }
 </style>

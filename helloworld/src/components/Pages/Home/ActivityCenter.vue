@@ -11,6 +11,14 @@ export default {
         }
     }
 }
+// export default Promise.resolve({
+//     name: 'Active',
+//     data () {
+//         return {
+//             msg: 'Active'
+//         }
+//     }
+// })
 </script>
 
 <style lang="scss">
