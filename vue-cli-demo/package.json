@@ -1,7 +1,7 @@
 {
-  "name": "app",
+  "name": "vue-cli-demo",
   "version": "1.0.0",
-  "description": "vue2-mintUI",
+  "description": "A Vue.js project",
   "author": "eminoda <245978782@qq.com>",
   "private": true,
   "scripts": {

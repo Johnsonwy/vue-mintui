@@ -1,6 +1,6 @@
-# app
+# vue-cli-demo
 
-> vue2-mintUI
+> A Vue.js project
 
 ## Build Setup
 
