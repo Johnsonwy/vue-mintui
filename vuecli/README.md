@@ -1,6 +1,6 @@
 # app
 
-> A Vue.js project
+> vue2-mintUI
 
 ## Build Setup
 
