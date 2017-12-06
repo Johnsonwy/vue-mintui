@@ -23,9 +23,6 @@ module.exports = {
     // externals: {
     //     'vue': 'Vue',
     //     'vue-router': 'VueRouter'
-    // },// externals: {
-    //     'vue': 'Vue',
-    //     'vue-router': 'VueRouter'
     // },
     module: {
         rules: [{
