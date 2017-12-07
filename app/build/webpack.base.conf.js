@@ -5,15 +5,15 @@ function resolve(dir) {
 }
 
 module.exports = {
-    context: path.resolve(__dirname, '../'),
+    // context: path.resolve(__dirname, '../'),
     entry: {
         app: './src/main.js',
         vendor: ['vue', 'vue-router', 'mint-ui', 'axios']
     },
     output: {
         filename: '[name].bundle.js',
-        path: path.resolve(__dirname, '../dist'),
-        publicPath: '/'
+        path: path.resolve(__dirname, '../dist')
+        // publicPath: '/'
     },
     resolve: {
         extensions: ['.js', '.vue', '.json'],
@@ -44,7 +44,7 @@ module.exports = {
                 test: /\.(png|jpe?g|gif)(\?.*)?$/,
                 loader: 'url-loader',
                 options: {
-                    limit: 10000,
+                    limit: 1,
                     name: 'static/img/[name].[hash:7].[ext]'
                 }
             },
@@ -60,18 +60,12 @@ module.exports = {
                 test: /\.(woff2?|eot|ttf|otf|svg)(\?.*)?$/,
                 loader: 'url-loader',
                 options: {
-                    limit: 10000,
+                    limit: 10,
                     name: 'static/fonts/[name].[hash:7].[ext]'
                 }
             }, {
                 test: /\.scss$/,
-                use: [{
-                    loader: "style-loader"
-                }, {
-                    loader: "css-loader"
-                }, {
-                    loader: "sass-loader"
-                }]
+                loaders: ['style-loader', 'css-loader', 'resolve-url-loader', 'sass-loader?sourceMap']
             }
         ]
     }

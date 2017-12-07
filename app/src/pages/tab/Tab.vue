@@ -1,19 +1,21 @@
 <template>
     <div>
+        <mt-header fixed title="固定在顶部"></mt-header>
         <router-view></router-view>
-        <mt-tabbar fixed=true>
-            <mt-tab-item id="首页">
-                <router-link to="/tab/home">首页</router-link>
+        <img src="../../assets/images/logo.png" alt="">
+        <mt-tabbar fixed>
+            <mt-tab-item id=" 首页 ">
+                <router-link to="/tab/home ">首页</router-link>
             </mt-tab-item>
-            <mt-tab-item id="配资">
-                <router-link to="/tab/trade">配资</router-link>
+            <mt-tab-item id="配资 ">
+                <router-link to="/tab/trade ">配资</router-link>
             </mt-tab-item>
-            <mt-tab-item id="交易">
-                <router-link to="/tab/transaction">交易</router-link>
+            <mt-tab-item id="交易 ">
+                <router-link to="/tab/transaction ">交易</router-link>
             </mt-tab-item>
-            <mt-tab-item id="我的">
-                <router-link to="/tab/user">交易
-                    <i class="icon icon-shangjiaqun"></i>
+            <mt-tab-item id="我的 ">
+                <router-link to="/tab/user ">交易
+                    <i class="icon icon-shangjiaqun "></i>
                 </router-link>
             </mt-tab-item>
         </mt-tabbar>
@@ -25,6 +27,7 @@ export default {
     name: 'Tab',
     data: function () {
         return {
+            fixed: false,
             msg: 'Hello world!'
         }
     },
