@@ -1,7 +1,7 @@
 <template>
     <div>
         <router-view></router-view>
-        <mt-tabbar>
+        <mt-tabbar fixed=true>
             <mt-tab-item id="首页">
                 <router-link to="/tab/home">首页</router-link>
             </mt-tab-item>
@@ -12,7 +12,9 @@
                 <router-link to="/tab/transaction">交易</router-link>
             </mt-tab-item>
             <mt-tab-item id="我的">
-                <router-link to="/tab/user">交易</router-link>
+                <router-link to="/tab/user">交易
+                    <i class="icon icon-shangjiaqun"></i>
+                </router-link>
             </mt-tab-item>
         </mt-tabbar>
     </div>

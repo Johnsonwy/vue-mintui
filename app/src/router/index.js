@@ -3,13 +3,12 @@ import Router from 'vue-router'
 
 import App from '../App.vue';
 
-import Tab from '../pages/tab/Tab.vue';
-import Home from '../pages/tab/Home.vue';
-import Trade from '../pages/tab/Trade.vue';
-import Transaction from '../pages/tab/Transaction.vue';
-import User from '../pages/tab/User.vue';
-
-import Login from '../pages/user/Login';
+const Tab = () => require.ensure([], () => require('../pages/tab/Tab.vue'), 'Tab');
+const Home = () => require.ensure([], () => require('../pages/tab/Home.vue'), 'Home');
+const Trade = () => require.ensure([], () => require('../pages/tab/Trade.vue'), 'Trade');
+const Transaction = () => require.ensure([], () => require('../pages/tab/Transaction.vue'), 'Transaction');
+const User = () => require.ensure([], () => require('../pages/tab/User.vue'), 'User');
+const Login = () => require.ensure([], () => require('../pages/user/Login'), 'Login');
 
 Vue.use(Router);
 
