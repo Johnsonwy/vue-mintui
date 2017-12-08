@@ -2,7 +2,7 @@ export default {
     tabs: [{
         id: 'home',
         name: '首页',
-        href: '/tab/trade'
+        href: '/tab/home'
     }, {
         id: 'trade',
         name: '配资',

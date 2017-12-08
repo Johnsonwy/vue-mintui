@@ -10,7 +10,7 @@ module.exports = merge(baseWebpackConfig, {
     devServer: {
         contentBase: './dist',
         port: '4200',
-        // host:'127.0.0.1',
+        host: '192.168.1.11',
         proxy: {
             '/**/*.api': "http://192.168.1.65:8090"
         }
