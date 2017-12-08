@@ -27,6 +27,9 @@ module.exports = {
     // },
     module: {
         rules: [{
+                test: /\.scss$/,
+                loaders: ['style-loader', 'css-loader', 'sass-loader']
+            }, {
                 test: /\.vue$/,
                 loader: 'vue-loader',
                 options: {
@@ -63,9 +66,6 @@ module.exports = {
                     limit: 10,
                     name: 'static/fonts/[name].[hash:7].[ext]'
                 }
-            }, {
-                test: /\.scss$/,
-                loaders: ['style-loader', 'css-loader', 'resolve-url-loader', 'sass-loader?sourceMap']
             }
         ]
     }

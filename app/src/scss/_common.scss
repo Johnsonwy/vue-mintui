@@ -2,6 +2,9 @@ html {
     font-size: 62.5%;
 }
 
-.test {
-    background: url("../assets/images/logo.png");
+a:link,
+a:visited,
+a:hover,
+a:active {
+    color: inherit;
 }
