@@ -20,6 +20,8 @@ Vue.component(SwipeItem.name, SwipeItem);
 Vue.component(Navbar.name, Navbar);
 Vue.component(Header.name, Header);
 Vue.component(Button.name, Button);
+// Vue.component(Tabbar.name, Tabbar);
+// Vue.component(TabItem.name, TabItem);
 Vue.component(VTabbar.name, VTabbar);
 Vue.component(VTabItem.name, VTabItem);
 

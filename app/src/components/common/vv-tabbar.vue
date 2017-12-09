@@ -27,7 +27,6 @@ export default {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  position: absolute;
   text-align: center;
 }
 </style>

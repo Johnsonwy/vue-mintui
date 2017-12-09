@@ -1,10 +1,9 @@
 <template>
-    <div>
+    <div class="tab">
         <!-- 路由页 -->
-        <router-view></router-view>
+        <router-view class="tab-foot"></router-view>
         <!-- 底部tab -->
         <vv-tabbar v-model="selected">
-            <!-- <vv-tab-item v-for="tab in tabs" id="tab.id" to="tab.href"> -->
             <vv-tab-item :id='tabs[0].id' :to="tabs[0].href">
                 <img src="../../assets/images/icon/home.png" alt="" slot="icon" v-if="tabs[0].id!=selected">
                 <img src="../../assets/images/icon/home2.png" alt="" slot="icon" v-if="tabs[0].id==selected">{{tabs[0].name}}
@@ -45,4 +44,11 @@ export default {
 
 <style lang="scss">
 @import "../../scss/_variables.scss";
+.tabbar {
+  background-color: $color-white;
+  border-top: 1px solid $color-greyD;
+}
+.tab-foot {
+  margin-bottom: 60px;
+}
 </style>
