@@ -1,5 +1,7 @@
 <template>
-    <div>{{msg}}
+    <div class="trade">
+        <mt-header fixed title="申请合约"></mt-header>
+        {{msg}}
     </div>
 </template>
 

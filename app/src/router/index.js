@@ -10,6 +10,7 @@ const Transaction = () => require.ensure([], () => require('../pages/transaction
 const User = () => require.ensure([], () => require('../pages/user/User.vue'), 'User');
 const Login = () => require.ensure([], () => require('../pages/user/Login'), 'Login');
 
+const ActiveCenter = () => require.ensure([], () => require('../pages/active/ActiveCenter'), 'ActiveCenter');
 Vue.use(Router);
 
 const routes = [{
@@ -35,6 +36,9 @@ const routes = [{
     }, {
         path: 'user/login',
         component: Login
+    }, {
+        path: 'active/center',
+        component: ActiveCenter
     }]
 }];
 

@@ -1,5 +1,7 @@
 <template>
-    <div>{{msg}}
+    <div class="user">
+        <mt-header fixed title="我的"></mt-header>
+        {{msg}}
     </div>
 </template>
 

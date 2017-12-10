@@ -2,7 +2,7 @@
  * @Author: shixinghao 
  * @Date: 2017-12-09 11:44:54 
  * @Last Modified by: shixinghaoshixinghao
- * @Last Modified time: 2017-12-09 23:39:23
+ * @Last Modified time: 2017-12-10 17:43:49
  */
 <template>
     <div class="home">
@@ -25,7 +25,7 @@
                     </div>
                     <img src="../../assets/images/home/guide.png" alt="" class="home-active-img clearfix">
                 </li>
-                <li>
+                <li v-go="'/active/center'">
                     <div class="home-active-item clearfix">
                         <span class="text1">活动中心</span>
                         <span class="text2">查看更多精彩活动</span>
@@ -57,21 +57,24 @@
             </div>
             <!-- 产品列表 -->
             <div class="home-product-list">
-                <div class="product-list-title"> 配资产品</div>
-                <div class="product-list-item">
-                    <img src="../../assets/images/home/product1.png" alt="">
+                <div class="product-list-title font-14 color-black">配资产品</div>
+                <div class="product-list-item" v-for="advert in adverts" :key="advert.id">
+                    <img v-if="advert.product.pzType==0" src="../../assets/images/home/product1.png" alt="">
+                    <img v-if="advert.product.pzType==1" src="../../assets/images/home/product2.png" alt="">
+                    <img v-if="advert.product.pzType==5" src="../../assets/images/home/product3.png" alt="">
+                    <img v-if="advert.product.pzType==6" src="../../assets/images/home/product4.png" alt="">
                     <div class="item-wrap">
-                        <div class="font-14 font-bold color-red">免息赢</div>
-                        <div class="font-12 color-grey">管理费全免</div>
+                        <div class="font-14 font-bold color-red">{{advert.name}}</div>
+                        <div class="font-12 color-grey">{{advert.slogan}}</div>
                     </div>
                     <div class="item-wrap2">
-                        <span class="font-40 color-red">6~10
+                        <span class="font-40 color-red">{{advert.product.mutipleOptions.substring(0,1)+'~'+advert.product.mutipleOptions.length}}
                             <span class="font-12">倍杠杆</span>
                         </span>
                         <i class="icon icon-more1 color-grey"></i>
                     </div>
                 </div>
-                <div class="product-list-item">
+                <!-- <div class="product-list-item">
                     <img src="../../assets/images/home/product2.png" alt="">
                     <div class="item-wrap">
                         <div class="font-14 font-bold color-red">日日升</div>
@@ -109,7 +112,7 @@
                         </span>
                         <i class="icon icon-more1 color-grey"></i>
                     </div>
-                </div>
+                </div> -->
             </div>
         </mt-loadmore>
     </div>
@@ -117,45 +120,36 @@
 
 <script>
 import { utilService } from '../../services/utilService.js';
-import { API } from '../../global/variables.js';
+import { API } from '../../services/global.js';
 
 export default {
     // name: 'Home',
     data() {
         return {
-            bannerHeight: utilService.getHeightByDeviceWidth()
+            bannerHeight: utilService.getHeightByDeviceWidth(),
+            adverts: []
         }
     },
     methods: {
         loadTop() {
-            this.$http.asyncAjax([{
+            this.$http.syncAjax({
                 url: API.product_show_get,
                 data: {
                     type: 0
                 }
-            }]).then((data) => {
+            }).then((data) => {
+                console.log(data);
+                this.adverts = data.adverts;
                 utilService.closeLoading();
-                utilService.showToast('相应成功');
             }).catch(error => {
                 utilService.closeLoading();
-                utilService.showToast('失败');
-            })
-            this.$refs.loadmore.onTopLoaded();
+                utilService.showError(error);
+            });
+            utilService.initScroll(this.$refs);
         }
     },
     created() {
-        this.$http.asyncAjax([{
-            url: API.product_show_get,
-            data: {
-                type: 0
-            }
-        }]).then((data) => {
-            utilService.closeLoading();
-            utilService.showToast('相应成功');
-        }).catch(error => {
-            utilService.closeLoading();
-            utilService.showToast('失败');
-        })
+        this.loadTop()
     }
 }
 </script>
@@ -201,6 +195,7 @@ export default {
       }
       .home-active-img {
         height: 4.4rem;
+        width: 4.7rem;
       }
     }
   }

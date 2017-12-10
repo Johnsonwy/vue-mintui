@@ -1,0 +1,6 @@
+@import "./variables.scss";
+.mint-header {
+    background-color: $color-white;
+    color: $color-black;
+    border-bottom: border($color-greyD);
+}

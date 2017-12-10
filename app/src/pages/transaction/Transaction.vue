@@ -1,5 +1,7 @@
 <template>
-    <div>{{msg}}
+    <div class="transaction">
+        <mt-header fixed title="我的交易"></mt-header>
+        {{msg}}
     </div>
 </template>
 

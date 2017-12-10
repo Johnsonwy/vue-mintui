@@ -7,3 +7,6 @@ $color-greyF2:#F2F2F2; //页面底色
 $color-white:#FFF;
 $color-black: #333;
 $font-min:12px;
+@function border($color) {
+    @return 1px solid $color;
+}

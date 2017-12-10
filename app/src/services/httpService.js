@@ -2,12 +2,12 @@
  * @Author: shixinghao 
  * @Date: 2017-12-09 21:54:00 
  * @Last Modified by: shixinghaoshixinghao
- * @Last Modified time: 2017-12-09 22:49:08
+ * @Last Modified time: 2017-12-10 17:40:58
  */
 import axios from 'axios';
 import {
     SYSTEM
-} from '../global/variables.js';
+} from './global.js';
 import {
     Indicator
 } from 'mint-ui';
@@ -26,7 +26,6 @@ instance.interceptors.request.use(function (config) {
     // console.log(config);
     config.url = config.url + SYSTEM.PREFIX_URL;
     config.params = config.method === 'get' ? config.data : {};
-    // Indicator.open();
     return config;
 }, function (error) {
     return Promise.reject(error);
@@ -34,9 +33,8 @@ instance.interceptors.request.use(function (config) {
 
 // response拦截器
 instance.interceptors.response.use(function (response) {
-    // Indicator.close();
-    console.log(response);
-    return response;
+    // console.log(response);
+    return response.data;
 }, function (error) {
     return Promise.reject(error);
 });

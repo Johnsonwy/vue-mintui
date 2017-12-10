@@ -1,7 +1,7 @@
 <template>
     <div class="tab">
         <!-- 路由页 -->
-        <router-view class="tab-foot"></router-view>
+        <router-view class="tab-view" v-bind:class="{'tab-view-noheader':selected=='home'}"></router-view>
         <!-- 底部tab -->
         <vv-tabbar v-model="selected">
             <vv-tab-item :id='tabs[0].id' :to="tabs[0].href">
@@ -25,13 +25,13 @@
 </template>
 
 <script>
-import variables from '../../global/variables.js';
+import { tabs } from '../../services/global.js';
 export default {
     name: 'Tab',
     data: function () {
         return {
-            tabs: variables.tabs,
-            selected: variables.tabs[0].id
+            tabs: tabs,
+            selected: tabs[0].id
         }
     },
     methods: {
@@ -48,7 +48,11 @@ export default {
   background-color: $color-white;
   border-top: 1px solid $color-greyD;
 }
-.tab-foot {
+.tab-view {
+  margin-top: 40px;
   margin-bottom: 60px;
+}
+.tab-view-noheader {
+  margin-top: 0;
 }
 </style>
