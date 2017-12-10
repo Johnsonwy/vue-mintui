@@ -3,9 +3,9 @@
         <mt-header fixed title="活动专区">
             <vv-header-back slot="left"></vv-header-back>
         </mt-header>
-        <img src="../../assets/images/home/active-center1.png" alt="">
-        <img src="../../assets/images/home/active-center2.png" alt="">
-        <img src="../../assets/images/home/active-center3.png" alt="">
+        <img src="http://m.ofo.so/image/home-pic-2.jpg" alt="">
+        <img src="http://m.ofo.so/image/home-pic-3.jpg" alt="">
+        <img src="http://m.ofo.so/image/home-pic-4.jpg" alt="">
     </div>
 </template>
 
