@@ -38,6 +38,12 @@ export default {
     },
     created: function () {
         console.log('init Tab router');
+        for (let i = 0; i < tabs.length; i++) {
+            if (this.$route.path.indexOf(tabs[i].href) != -1) {
+                this.selected = tabs[i].id;
+                return;
+            }
+        }
     }
 };
 </script>

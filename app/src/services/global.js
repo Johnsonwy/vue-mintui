@@ -30,7 +30,7 @@ export const tabs = [{
 }, {
     id: 'transaction',
     name: '交易',
-    href: '/tab/transaction'
+    href: '/tab/mytrade'
 }, {
     id: 'user',
     name: '用户',

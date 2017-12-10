@@ -1,16 +1,18 @@
 <template>
     <div class="transaction">
-        <mt-header fixed title="我的交易"></mt-header>
+        <mt-header fixed title="transaction">
+            <vv-header-back slot="left"></vv-header-back>
+        </mt-header>
         {{msg}}
     </div>
 </template>
 
 <script>
 export default {
-    name: 'Transaction',
+    name: 'transaction',
     data() {
         return {
-            msg: 'Transaction'
+            msg: 'transaction'
         }
     }
 }

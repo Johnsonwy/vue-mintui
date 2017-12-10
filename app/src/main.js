@@ -15,12 +15,14 @@ import {
     Swipe,
     SwipeItem,
     Toast,
-    Loadmore
+    Loadmore,
+    TabItem
 } from 'mint-ui';
 
 Vue.use(httpService);
 Vue.component(Navbar.name, Navbar);
 Vue.component(Header.name, Header);
+Vue.component(TabItem.name, TabItem);
 Vue.component(Swipe.name, Swipe);
 Vue.component(SwipeItem.name, SwipeItem);
 Vue.component(Button.name, Button);

@@ -2,7 +2,7 @@
  * @Author: shixinghao 
  * @Date: 2017-12-09 21:54:00 
  * @Last Modified by: shixinghaoshixinghao
- * @Last Modified time: 2017-12-10 19:35:08
+ * @Last Modified time: 2017-12-10 20:05:50
  */
 import axios from 'axios';
 import {
@@ -33,7 +33,7 @@ instance.interceptors.request.use(function (config) {
 
 // response拦截器
 instance.interceptors.response.use(function (response) {
-    // console.log(response);
+    console.log(response.data);
     return response.data;
 }, function (error) {
     return Promise.reject(error);
@@ -58,7 +58,7 @@ instance.asyncAjax = async function (requestArr) {
         console.log(requestHttpArr);
         return await Promise.all(requestHttpArr);
     } else {
-        console.log(requestHttpArr);
+        console.log(requestArr);
         return await this.request(requestArr);
     }
 }
@@ -82,7 +82,7 @@ instance.syncAjax = async function (requestArr) {
         console.log(requestHttpArr);
         return requestHttpArr;
     } else {
-        console.log(requestHttpArr);
+        console.log(requestArr);
         return await this.request(requestArr);
     }
 }

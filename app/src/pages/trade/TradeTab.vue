@@ -1,13 +1,13 @@
 <template>
-    <div class="trade">
-        <mt-header fixed title="申请合约"></mt-header>
+    <div class="trade header-top">
+        <mt-header fixed title="申请合约1"></mt-header>
         {{msg}}
+        <div v-go="'/trade/applytrade'">下一步</div>
     </div>
 </template>
 
 <script>
 export default {
-    name: 'Trade',
     data() {
         return {
             msg: 'Trade'
