@@ -1,6 +1,8 @@
 export const TEXT = {
     SERVER_ERROR: '服务器异常，请稍后再试',
-    SERVER_NOFOUND: '服务器资源不存在'
+    SERVER_NOFOUND: '服务器资源不存在',
+    SERVER_NETWORK: '网络不可用',
+    SERVER_BUSY: '服务器繁忙，请稍后再试'
 }
 export const SYSTEM = {
     TIMEOUT: 6000,

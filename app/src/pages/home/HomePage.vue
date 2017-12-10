@@ -2,7 +2,7 @@
  * @Author: shixinghao 
  * @Date: 2017-12-09 11:44:54 
  * @Last Modified by: shixinghaoshixinghao
- * @Last Modified time: 2017-12-10 17:50:00
+ * @Last Modified time: 2017-12-10 19:35:22
  */
 <template>
     <div class="home">
@@ -138,7 +138,6 @@ export default {
                     type: 0
                 }
             }).then((data) => {
-                console.log(data);
                 this.adverts = data.adverts;
                 utilService.closeLoading();
             }).catch(error => {
