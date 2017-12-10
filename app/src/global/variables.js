@@ -17,3 +17,14 @@ export default {
         href: '/tab/user'
     }]
 }
+export const SYSTEM = {
+    TIMEOUT: 6000,
+    HOSTNAME: 'http://m.9fanfanf.com',
+    BASE_URL: '/',
+    PREFIX_URL: '.api',
+    TOAST_TIMEOUT: 3000
+}
+export const API = {
+    product_show_get: '/product/show',
+    user_getbalance_get: 'user/getbalance',
+}

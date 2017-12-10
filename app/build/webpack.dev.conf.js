@@ -12,7 +12,8 @@ module.exports = merge(baseWebpackConfig, {
         port: '4200',
         host: '192.168.1.11',
         proxy: {
-            '/**/*.api': "http://192.168.1.65:8090"
+            // '/**/*.api': "http://192.168.1.65:8090"
+            '/**/*.api': "http://bg.9fanfan.com"
         }
     },
     plugins: [

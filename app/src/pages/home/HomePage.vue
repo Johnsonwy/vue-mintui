@@ -2,125 +2,160 @@
  * @Author: shixinghao 
  * @Date: 2017-12-09 11:44:54 
  * @Last Modified by: shixinghaoshixinghao
- * @Last Modified time: 2017-12-09 17:01:38
+ * @Last Modified time: 2017-12-09 23:39:23
  */
 <template>
     <div class="home">
-        <!-- banner -->
-        <mt-swipe :auto="2000" :style="{height:bannerHeight}">
-            <mt-swipe-item :style="{height:bannerHeight}">
-                <img src="http://121.40.156.197:8070/u/cms/www/201703/14170406tsru.jpg" alt="">
-            </mt-swipe-item>
-            <mt-swipe-item :style="{height:bannerHeight}">
-                <img src="http://121.40.156.197:8070/u/cms/www/201703/14170406tsru.jpg" alt="">
-            </mt-swipe-item>
-        </mt-swipe>
-        <!-- 活动 -->
-        <ul class="home-active clearfix">
-            <li>
-                <div class="home-active-item clearfix">
-                    <span class="text1">新手指引</span>
-                    <span class="text2">新人领取350元红包</span>
-                </div>
-                <img src="../../assets/images/home/guide.png" alt="" class="home-active-img clearfix">
-            </li>
-            <li>
-                <div class="home-active-item clearfix">
-                    <span class="text1">活动中心</span>
-                    <span class="text2">查看更多精彩活动</span>
-                </div>
-                <img src="../../assets/images/home/active-center.png" alt="" class="home-active-img clearfix">
-            </li>
-        </ul>
-        <!-- 新手专区 -->
-        <div class="home-newcenter">
-            <div class="newcenter-title font-14">新手专区</div>
-            <div class="newcenter-wrap">
-                <div class="newcenter-content">
-                    <div class="title font-12">
-                        免费体验
+        <mt-loadmore :top-method="loadTop" ref="loadmore" topDropText="正在加载数据">
+            <!-- banner -->
+            <mt-swipe :auto="2000" :style="{height:bannerHeight}">
+                <mt-swipe-item :style="{height:bannerHeight}">
+                    <img src="http://121.40.156.197:8070/u/cms/www/201703/14170406tsru.jpg" alt="">
+                </mt-swipe-item>
+                <mt-swipe-item :style="{height:bannerHeight}">
+                    <img src="http://121.40.156.197:8070/u/cms/www/201703/14170406tsru.jpg" alt="">
+                </mt-swipe-item>
+            </mt-swipe>
+            <!-- 活动 -->
+            <ul class="home-active clearfix">
+                <li>
+                    <div class="home-active-item clearfix">
+                        <span class="text1">新手指引</span>
+                        <span class="text2">新人领取350元红包</span>
                     </div>
-                    <div class="font-16 font-bold color-red">2100元</div>
-                    <div class="font-14 font-bold">操盘体验资金</div>
-                    <div class="font-12">2个交易日</div>
-                </div>
-                <div class="newcenter-content">
-                    <div class="title font-12">
-                        免息体验
+                    <img src="../../assets/images/home/guide.png" alt="" class="home-active-img clearfix">
+                </li>
+                <li>
+                    <div class="home-active-item clearfix">
+                        <span class="text1">活动中心</span>
+                        <span class="text2">查看更多精彩活动</span>
                     </div>
-                    <div class="font-16 font-bold color-red">6000元</div>
-                    <div class="font-14 font-bold">操盘体验资金</div>
-                    <div class="font-12">一个月</div>
+                    <img src="../../assets/images/home/active-center.png" alt="" class="home-active-img clearfix">
+                </li>
+            </ul>
+            <!-- 新手专区 -->
+            <div class="home-newcenter">
+                <div class="newcenter-title font-14">新手专区</div>
+                <div class="newcenter-wrap">
+                    <div class="newcenter-content">
+                        <div class="title font-12">
+                            免费体验
+                        </div>
+                        <div class="font-16 font-bold color-red">2100元</div>
+                        <div class="font-14 font-bold">操盘体验资金</div>
+                        <div class="font-12">2个交易日</div>
+                    </div>
+                    <div class="newcenter-content">
+                        <div class="title font-12">
+                            免息体验
+                        </div>
+                        <div class="font-16 font-bold color-red">6000元</div>
+                        <div class="font-14 font-bold">操盘体验资金</div>
+                        <div class="font-12">一个月</div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <!-- 产品列表 -->
-        <div class="home-product-list">
-            <div class="product-list-title"> 配资产品</div>
-            <div class="product-list-item">
-                <img src="../../assets/images/home/product1.png" alt="">
-                <div class="item-wrap">
-                    <div class="font-14 font-bold color-red">免息赢</div>
-                    <div class="font-12 color-grey">管理费全免</div>
+            <!-- 产品列表 -->
+            <div class="home-product-list">
+                <div class="product-list-title"> 配资产品</div>
+                <div class="product-list-item">
+                    <img src="../../assets/images/home/product1.png" alt="">
+                    <div class="item-wrap">
+                        <div class="font-14 font-bold color-red">免息赢</div>
+                        <div class="font-12 color-grey">管理费全免</div>
+                    </div>
+                    <div class="item-wrap2">
+                        <span class="font-40 color-red">6~10
+                            <span class="font-12">倍杠杆</span>
+                        </span>
+                        <i class="icon icon-more1 color-grey"></i>
+                    </div>
                 </div>
-                <div class="item-wrap2">
-                    <span class="font-40 color-red">6~10
-                        <span class="font-12">倍杠杆</span>
-                    </span>
-                    <i class="icon icon-more1 color-grey"></i>
+                <div class="product-list-item">
+                    <img src="../../assets/images/home/product2.png" alt="">
+                    <div class="item-wrap">
+                        <div class="font-14 font-bold color-red">日日升</div>
+                        <div class="font-12 color-grey">放大十倍收益</div>
+                    </div>
+                    <div class="item-wrap2">
+                        <span class="font-40 color-red">6~10
+                            <span class="font-12">倍杠杆</span>
+                        </span>
+                        <i class="icon icon-more1 color-grey"></i>
+                    </div>
+                </div>
+                <div class="product-list-item">
+                    <img src="../../assets/images/home/product3.png" alt="">
+                    <div class="item-wrap">
+                        <div class="font-14 font-bold color-red">月月翻</div>
+                        <div class="font-12 color-grey">按月配更优惠</div>
+                    </div>
+                    <div class="item-wrap2">
+                        <span class="font-40 color-red">6~10
+                            <span class="font-12">倍杠杆</span>
+                        </span>
+                        <i class="icon icon-more1 color-grey"></i>
+                    </div>
+                </div>
+                <div class="product-list-item">
+                    <img src="../../assets/images/home/product4.png" alt="">
+                    <div class="item-wrap">
+                        <div class="font-14 font-bold color-red">至尊惠</div>
+                        <div class="font-12 color-grey">月息低至0.8%</div>
+                    </div>
+                    <div class="item-wrap2">
+                        <span class="font-40 color-red">6~10
+                            <span class="font-12">倍杠杆</span>
+                        </span>
+                        <i class="icon icon-more1 color-grey"></i>
+                    </div>
                 </div>
             </div>
-            <div class="product-list-item">
-                <img src="../../assets/images/home/product2.png" alt="">
-                <div class="item-wrap">
-                    <div class="font-14 font-bold color-red">日日升</div>
-                    <div class="font-12 color-grey">放大十倍收益</div>
-                </div>
-                <div class="item-wrap2">
-                    <span class="font-40 color-red">6~10
-                        <span class="font-12">倍杠杆</span>
-                    </span>
-                    <i class="icon icon-more1 color-grey"></i>
-                </div>
-            </div>
-            <div class="product-list-item">
-                <img src="../../assets/images/home/product3.png" alt="">
-                <div class="item-wrap">
-                    <div class="font-14 font-bold color-red">月月翻</div>
-                    <div class="font-12 color-grey">按月配更优惠</div>
-                </div>
-                <div class="item-wrap2">
-                    <span class="font-40 color-red">6~10
-                        <span class="font-12">倍杠杆</span>
-                    </span>
-                    <i class="icon icon-more1 color-grey"></i>
-                </div>
-            </div>
-            <div class="product-list-item">
-                <img src="../../assets/images/home/product4.png" alt="">
-                <div class="item-wrap">
-                    <div class="font-14 font-bold color-red">至尊惠</div>
-                    <div class="font-12 color-grey">月息低至0.8%</div>
-                </div>
-                <div class="item-wrap2">
-                    <span class="font-40 color-red">6~10
-                        <span class="font-12">倍杠杆</span>
-                    </span>
-                    <i class="icon icon-more1 color-grey"></i>
-                </div>
-            </div>
-        </div>
+        </mt-loadmore>
     </div>
 </template>
 
 <script>
-import { UtilService } from '../../services/UtilService.js';
+import { utilService } from '../../services/utilService.js';
+import { API } from '../../global/variables.js';
+
 export default {
     // name: 'Home',
     data() {
         return {
-            bannerHeight: UtilService.getHeightByDeviceWidth()
+            bannerHeight: utilService.getHeightByDeviceWidth()
         }
+    },
+    methods: {
+        loadTop() {
+            this.$http.asyncAjax([{
+                url: API.product_show_get,
+                data: {
+                    type: 0
+                }
+            }]).then((data) => {
+                utilService.closeLoading();
+                utilService.showToast('相应成功');
+            }).catch(error => {
+                utilService.closeLoading();
+                utilService.showToast('失败');
+            })
+            this.$refs.loadmore.onTopLoaded();
+        }
+    },
+    created() {
+        this.$http.asyncAjax([{
+            url: API.product_show_get,
+            data: {
+                type: 0
+            }
+        }]).then((data) => {
+            utilService.closeLoading();
+            utilService.showToast('相应成功');
+        }).catch(error => {
+            utilService.closeLoading();
+            utilService.showToast('失败');
+        })
     }
 }
 </script>

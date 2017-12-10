@@ -8,7 +8,7 @@ module.exports = {
     // context: path.resolve(__dirname, '../'),
     entry: {
         app: './src/main.js',
-        vendor: ['vue', 'vue-router', 'mint-ui', 'axios']
+        vendor: ["babel-polyfill", 'vue', 'vue-router', 'mint-ui', 'axios']
     },
     output: {
         filename: '[name].bundle.js',
