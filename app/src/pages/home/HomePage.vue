@@ -2,7 +2,7 @@
  * @Author: shixinghao 
  * @Date: 2017-12-09 11:44:54 
  * @Last Modified by: shixinghaoshixinghao
- * @Last Modified time: 2017-12-10 17:43:49
+ * @Last Modified time: 2017-12-10 17:50:00
  */
 <template>
     <div class="home">
@@ -10,10 +10,10 @@
             <!-- banner -->
             <mt-swipe :auto="2000" :style="{height:bannerHeight}">
                 <mt-swipe-item :style="{height:bannerHeight}">
-                    <img src="http://121.40.156.197:8070/u/cms/www/201703/14170406tsru.jpg" alt="">
+                    <img src="//img.alicdn.com/simba/img/TB1tVKfXwxQ7KJjSZFLSuwdjpXa.jpg_q50.jpg" alt="">
                 </mt-swipe-item>
                 <mt-swipe-item :style="{height:bannerHeight}">
-                    <img src="http://121.40.156.197:8070/u/cms/www/201703/14170406tsru.jpg" alt="">
+                    <img src="//gw.alicdn.com/imgextra/TB2TksRhznD8KJjSspbXXbbEXXa_!!45-0-luban.jpg_q50.jpg" alt="">
                 </mt-swipe-item>
             </mt-swipe>
             <!-- 活动 -->
