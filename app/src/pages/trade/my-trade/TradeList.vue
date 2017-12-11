@@ -36,7 +36,7 @@ import { API, BUSS } from '../../../services/global';
 import { utilService } from '../../../services/utilService';
 export default {
     name: 'trade-list',
-    data () {
+    data() {
         return {
             tradeListForm: {
                 page: 1,
@@ -50,7 +50,6 @@ export default {
     },
     methods: {
         getTradeList: function () {
-            console.log(this.tradeListForm);
             return this.$http.syncAjax({
                 url: API.trade_tradelist_post,
                 data: this.tradeListForm,
@@ -59,7 +58,7 @@ export default {
         },
         loadTop: function () {
             console.log('top');
-            this.tradeListForm.pageSize = 1;
+            this.tradeListForm.page = 1;
             this.tradeList = [];
             this.getTradeList().then((data) => {
                 his.$refs.loadmore.onTopLoaded();
@@ -73,11 +72,12 @@ export default {
         },
         loadBottom: function () {
             console.log('loadBottom');
-            console.log(this.tradeListForm);
+            this.allLoaded = true;
             this.getTradeList().then((data) => {
                 if (data.tradeList.totalPage < this.tradeListForm.page) {
                     this.allLoaded = true;
                 } else {
+                    this.allLoaded = false;
                     this.tradeListForm.page++;
                     this.tradeList = this.tradeList.concat(data.tradeList.resultList);
                 }
@@ -94,7 +94,7 @@ export default {
     created: function () {
         // this.loadBottom();
     },
-    mounted () {
+    mounted() {
         this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top;
     }
 }
