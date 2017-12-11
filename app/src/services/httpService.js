@@ -1,10 +1,17 @@
 /*
  * @Author: shixinghao 
  * @Date: 2017-12-09 21:54:00 
- * @Last Modified by: shixinghaoshixinghao
- * @Last Modified time: 2017-12-10 20:05:50
+ * @Last Modified by: shixinghao
+ * @Last Modified time: 2017-12-11 11:29:52
  */
 import axios from 'axios';
+import {
+    utilService
+} from './utilService.js';
+import {
+    token
+} from '../mock/token.js';
+console.log(token);
 import {
     SYSTEM
 } from './global.js';
@@ -26,6 +33,8 @@ instance.interceptors.request.use(function (config) {
     // console.log(config);
     config.url = config.url + SYSTEM.PREFIX_URL;
     config.params = config.method === 'get' ? config.data : {};
+    utilService.setLocalStorage('token', token);
+    config.headers['token'] = utilService.getLocalStorage('token');
     return config;
 }, function (error) {
     return Promise.reject(error);

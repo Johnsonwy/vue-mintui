@@ -3,14 +3,14 @@ import Router from 'vue-router'
 
 import App from '../App.vue';
 
-const Tab = () => require.ensure([], () => require('../pages/tab/TabPage.vue'), 'Tab');
-const Home = () => require.ensure([], () => require('../pages/home/HomeTab.vue'), 'Home');
-const Trade = () => require.ensure([], () => require('../pages/trade/TradeTab.vue'), 'Trade');
-const MyTrade = () => require.ensure([], () => require('../pages/trade/my-trade/MyTradeTab.vue'), 'MyTrade');
+import Tab from '../pages/tab/TabPage.vue';
+import Home from '../pages/home/HomeTab.vue';
+import Trade from '../pages/trade/TradeTab.vue';
+import MyTrade from '../pages/trade/my-trade/MyTradeTab.vue';
+import User from '../pages/user/User.vue';
 
 const TradeList = () => require.ensure([], () => require('../pages/trade/my-trade/TradeList.vue'), 'TradeList');
 const TradeHistoryList = () => require.ensure([], () => require('../pages/trade/my-trade/TradeHistoryList.vue'), 'TradeHistoryList');
-
 const TradeDetail = () => require.ensure([], () => require('../pages/trade/my-trade/TradeDetail.vue'), 'TradeDetail');
 const TradeHistoryDetail = () => require.ensure([], () => require('../pages/trade/my-trade/TradeHistoryDetail.vue'), 'TradeHistoryDetail');
 
@@ -20,7 +20,6 @@ const TradeCancel = () => require.ensure([], () => require('../pages/trade/trade
 const Transaction = () => require.ensure([], () => require('../pages/trade/trade-client/Transaction.vue'), 'Transaction');
 const TradeQuery = () => require.ensure([], () => require('../pages/trade/trade-client/trade-query/TradeQuery.vue'), 'TradeQuery');
 
-const User = () => require.ensure([], () => require('../pages/user/User.vue'), 'User');
 const UserLogin = () => require.ensure([], () => require('../pages/user/UserLogin'), 'UserLogin');
 const UserForgetpwd = () => require.ensure([], () => require('../pages/user/UserForgetpwd'), 'UserForgetpwd');
 const UserRegist = () => require.ensure([], () => require('../pages/user/UserRegist'), 'UserRegist');

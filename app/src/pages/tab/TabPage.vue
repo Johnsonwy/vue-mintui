@@ -6,7 +6,7 @@
         <vv-tabbar v-model="selected">
             <vv-tab-item :id='tabs[0].id' :to="tabs[0].href">
                 <img src="../../assets/images/icon/home.png" alt="" slot="icon" v-if="tabs[0].id!=selected">
-                <img src="../../assets/images/icon/home2.png" alt="" slot="icon" v-if="tabs[0].id==selected">{{tabs[0].name}}
+                <img src="../../assets/images/icon/home2.png" alt="" slot="icon" v-if="tabs[0].id==selected">{{tabs[0].name}}{{selected}}
             </vv-tab-item>
             <vv-tab-item :id='tabs[1].id' :to="tabs[1].href">
                 <img src="../../assets/images/icon/trade.png" alt="" slot="icon" v-if="tabs[1].id!=selected">

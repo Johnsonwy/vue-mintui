@@ -1,8 +1,8 @@
 /*
  * @Author: shixinghao 
  * @Date: 2017-12-09 11:44:54 
- * @Last Modified by: shixinghaoshixinghao
- * @Last Modified time: 2017-12-10 19:35:22
+ * @Last Modified by: shixinghao
+ * @Last Modified time: 2017-12-11 11:51:37
  */
 <template>
     <div class="home">
@@ -61,14 +61,14 @@
                 <div class="product-list-item" v-for="advert in adverts" :key="advert.id">
                     <img v-if="advert.product.pzType==0" src="../../assets/images/home/product1.png" alt="">
                     <img v-if="advert.product.pzType==1" src="../../assets/images/home/product2.png" alt="">
-                    <img v-if="advert.product.pzType==5" src="../../assets/images/home/product3.png" alt="">
+                    <img v-if="advert.product.pzType==5||advert.product.pzType==9" src="../../assets/images/home/product3.png" alt="">
                     <img v-if="advert.product.pzType==6" src="../../assets/images/home/product4.png" alt="">
                     <div class="item-wrap">
                         <div class="font-14 font-bold color-red">{{advert.name}}</div>
                         <div class="font-12 color-grey">{{advert.slogan}}</div>
                     </div>
                     <div class="item-wrap2">
-                        <span class="font-40 color-red">{{advert.product.mutipleOptions.substring(0,1)+'~'+advert.product.mutipleOptions.length}}
+                        <span class="font-40 color-red">{{advert.product.mutipleOptions|strToArr|getArrItem(0)}}~{{advert.product.mutipleOptions|getArrMaxItem}}
                             <span class="font-12">倍杠杆</span>
                         </span>
                         <i class="icon icon-more1 color-grey"></i>
@@ -124,14 +124,14 @@ import { API } from '../../services/global.js';
 
 export default {
     // name: 'Home',
-    data() {
+    data () {
         return {
             bannerHeight: utilService.getHeightByDeviceWidth(),
             adverts: []
         }
     },
     methods: {
-        loadTop() {
+        loadTop () {
             this.$http.syncAjax({
                 url: API.product_show_get,
                 data: {
@@ -147,7 +147,7 @@ export default {
             utilService.initScroll(this.$refs);
         }
     },
-    created() {
+    created () {
         this.loadTop()
     }
 }

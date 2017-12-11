@@ -1,8 +1,8 @@
 /*
  * @Author: shixinghao 
  * @Date: 2017-12-08 22:43:05 
- * @Last Modified by: shixinghaoshixinghao
- * @Last Modified time: 2017-12-10 19:44:23
+ * @Last Modified by: shixinghao
+ * @Last Modified time: 2017-12-11 10:57:37
  */
 import Vue from 'vue';
 import {
@@ -44,14 +44,21 @@ export const utilService = {
         if (error.response && error.response.status === SYSTEM.HTTP_STATUS.SERVER_NOFOUND) {
             this.showToast(TEXT.SERVER_NOFOUND);
         } else if (error.response && error.response.status === SYSTEM.HTTP_STATUS.SERVER_ERROR) {
-            this.showToast(TEXT.SERVER_NOFOUND);
-        } else if (error.message.indexOf('network') != -1) {
+            this.showToast(TEXT.SERVER_ERROR);
+        } else if (error.message.toLocaleLowerCase().indexOf('network') != -1) {
             this.showToast(TEXT.SERVER_NETWORK);
         } else if (error.message.indexOf('timeout') != -1) {
             this.showToast(TEXT.SERVER_BUSY);
         } else {
-            this.showToast(error.message || TEXT.SERVER_NOFOUND);
+            this.showToast(error.message || TEXT.SERVER_ERROR);
         }
 
+    },
+    // 保存信息
+    setLocalStorage: function (key, value) {
+        window.localStorage.setItem(key, value);
+    },
+    getLocalStorage: function (key) {
+        return window.localStorage.getItem(key);
     }
 }

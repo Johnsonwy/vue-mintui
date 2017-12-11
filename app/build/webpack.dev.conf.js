@@ -10,10 +10,10 @@ module.exports = merge(baseWebpackConfig, {
     devServer: {
         contentBase: './dist',
         port: '4200',
-        host: '192.168.1.11',
+        host: '0.0.0.0',
         proxy: {
-            // '/**/*.api': "http://192.168.1.65:8090"
-            '/**/*.api': "http://bg.9fanfan.com"
+            '/**/*.api': "http://192.168.1.65:8191"
+            // '/**/*.api': "http://bg.9fanfan.com"
         }
     },
     plugins: [

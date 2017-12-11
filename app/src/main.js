@@ -8,6 +8,7 @@ import VTabbar from './components/common/vv-tabbar.vue';
 import VTabItem from './components/common/vv-tab-item.vue';
 import VHeaderBack from './components/common/vv-header-back.vue';
 import './directives';
+import './filters';
 import {
     Navbar,
     Header,
