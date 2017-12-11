@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import numeral from 'numeral';
 
 Vue.filter('strToArr', function (value) {
     if (!value) {
@@ -22,5 +23,13 @@ Vue.filter('getArrMaxItem', function (value) {
     } else {
         let arr = value.split(',');
         return arr[arr.length - 1];
+    }
+})
+
+Vue.filter('number', function (value, format) {
+    if (!value) {
+        return 0.00;
+    } else {
+        return numeral(value).format(format);
     }
 })

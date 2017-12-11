@@ -10,10 +10,13 @@
 <script>
 export default {
     name: 'user-login',
-    data() {
+    data () {
         return {
             msg: 'user-login'
         }
+    },
+    created: function () {
+        console.log(this);
     }
 }
 </script>

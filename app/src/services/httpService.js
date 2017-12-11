@@ -2,9 +2,10 @@
  * @Author: shixinghao 
  * @Date: 2017-12-09 21:54:00 
  * @Last Modified by: shixinghao
- * @Last Modified time: 2017-12-11 11:29:52
+ * @Last Modified time: 2017-12-11 14:43:29
  */
 import axios from 'axios';
+import qs from 'qs';
 import {
     utilService
 } from './utilService.js';
@@ -24,7 +25,8 @@ var instance = axios.create({
     method: 'get',
     timeout: SYSTEM.TIMEOUT,
     headers: {
-        'X-Requested-With': 'XMLHttpRequest'
+        'X-Requested-With': 'XMLHttpRequest',
+        'Content-Type': 'application/x-www-form-urlencoded'
     }
 });
 
@@ -32,7 +34,7 @@ var instance = axios.create({
 instance.interceptors.request.use(function (config) {
     // console.log(config);
     config.url = config.url + SYSTEM.PREFIX_URL;
-    config.params = config.method === 'get' ? config.data : {};
+    config.data = qs.stringify(config.data)
     utilService.setLocalStorage('token', token);
     config.headers['token'] = utilService.getLocalStorage('token');
     return config;

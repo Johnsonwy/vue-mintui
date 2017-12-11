@@ -15,16 +15,22 @@ import {
     Button,
     Swipe,
     SwipeItem,
+    Spinner,
+    CellSwipe,
     Toast,
     Loadmore,
-    TabItem
+    TabItem,
+    InfiniteScroll
 } from 'mint-ui';
 
 Vue.use(httpService);
+Vue.use(InfiniteScroll);
+Vue.component(CellSwipe.name, CellSwipe);
 Vue.component(Navbar.name, Navbar);
 Vue.component(Header.name, Header);
 Vue.component(TabItem.name, TabItem);
 Vue.component(Swipe.name, Swipe);
+Vue.component(Spinner.name, Spinner);
 Vue.component(SwipeItem.name, SwipeItem);
 Vue.component(Button.name, Button);
 Vue.component(Loadmore.name, Loadmore);
