@@ -1,30 +1,30 @@
 <template>
     <div class="trade-list" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">
         <mt-loadmore style="margin-bottom:60px" :top-method="loadTop" ref="loadmore" topDropText="正在加载数据" :bottom-all-loaded="allLoaded" :bottom-method="loadBottom">
-            <div class="trade-list-item" v-for="trade in tradeList" :key="trade.id">
+            <div class="trade-list-item" v-for="(trade,index) in tradeList" :key="trade.id" :class="{'border-green':totalTradeList[index] - trade.wfPercent<0}">
                 <div class="item-title-wrap">
                     <span class="title-name">{{trade.product.productName}}</span>
                     <span class="title-status">操盘中</span>
-                    <span class="title-date">2017-12-11 至 2017-12-11</span>
+                    <span class="title-date">{{trade.firstTradeDate|date}} 至 {{trade.realEndDate|date}}
+                        <i class="icon icon-more1"></i>
+                    </span>
                 </div>
                 <div class="item-content-wrap">
                     <ul class="line clearfix">
                         <li>
                             <span>操盘资金</span>
-                            <span>{{1300000|number('0.00')}}</span>
+                            <span>{{trade.wfPercent|number('0.00')}}</span>
                         </li>
                         <li>
                             <span>风险保证金</span>
-                            <span>3000.00</span>
+                            <span>{{trade.capitalAmount|number('0.00')}}</span>
                         </li>
                     </ul>
                     <div>
                         <span>累计盈亏</span>
-                        <span>130000.00 (+30%)</span>
+                        <span v-red-green="totalTradeList[index] - trade.wfPercent">{{(totalTradeList[index] - trade.wfPercent)|number('0.00')}} ({{(totalTradeList[index] - trade.wfPercent)|profitHistoryPercent(trade.capitalAmount)|number('0.00')|operator}}%)</span>
                     </div>
-                    <img src="../../../assets/images/trade/arrear.png" alt="">
                 </div>
-
             </div>
         </mt-loadmore>
         <!-- <router-link :to="'/mytrade/detail'">当前详情</router-link> -->
@@ -34,9 +34,10 @@
 <script>
 import { API, BUSS } from '../../../services/global';
 import { utilService } from '../../../services/utilService';
+import { bussService } from '../../../services/bussService';
 export default {
     name: 'trade-list',
-    data() {
+    data () {
         return {
             tradeListForm: {
                 page: 1,
@@ -91,10 +92,20 @@ export default {
             });
         }
     },
-    created: function () {
+    computed: {
+        totalTradeList: function () {
+            let totalTradeList = [];
+            for (let i = 0; i < this.tradeList.length; i++) {
+                totalTradeList[i] = bussService.getTotalTrade(this.tradeList[i]);
+            }
+            console.log(123);
+            return totalTradeList;
+        }
+    },
+    created () {
         // this.loadBottom();
     },
-    mounted() {
+    mounted () {
         this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top;
     }
 }
@@ -104,12 +115,16 @@ export default {
 @import "../../../scss/variables";
 .trade-list {
   .trade-list-item {
+    border-right: 0.3rem solid $color-red;
     position: relative;
     font-size: 1.4rem;
     background-color: $color-white;
     margin-bottom: 1rem;
     border-top: border($color-greyD);
     border-bottom: border($color-greyD);
+    &.border-green {
+      border-right: 0.3rem solid $color-green;
+    }
     .item-title-wrap {
       padding: 1.5rem 0;
       padding-right: 1.5rem;
@@ -121,8 +136,8 @@ export default {
       }
       .title-status {
         margin-left: 0.5rem;
-        padding: 0 1rem;
-        background-color: $color-red;
+        padding: 0 0.7rem;
+        background-color: $color-greyA6;
         border-radius: 10px;
         color: $color-white;
         font-size: 1.2rem;

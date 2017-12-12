@@ -36,7 +36,7 @@ import { API, BUSS } from '../../../services/global';
 import { utilService } from '../../../services/utilService';
 export default {
     name: 'trade-list',
-    data() {
+    data () {
         return {
             tradeListForm: {
                 page: 1,
@@ -61,7 +61,7 @@ export default {
             this.tradeListForm.page = 1;
             this.tradeList = [];
             this.getTradeList().then((data) => {
-                his.$refs.loadmore.onTopLoaded();
+                this.$refs.loadmore.onTopLoaded();
                 this.tradeList = this.tradeList.concat(data.tradeList.resultList);
                 utilService.closeLoading();
             }).catch(error => {
@@ -81,6 +81,7 @@ export default {
                     this.tradeListForm.page++;
                     this.tradeList = this.tradeList.concat(data.tradeList.resultList);
                 }
+                window.scrollTo(0, 0);
                 this.$refs.loadmore.onBottomLoaded()
                 utilService.closeLoading();
             }).catch(error => {
@@ -94,7 +95,7 @@ export default {
     created: function () {
         // this.loadBottom();
     },
-    mounted() {
+    mounted () {
         this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top;
     }
 }
@@ -121,7 +122,7 @@ export default {
       }
       .title-status {
         margin-left: 0.5rem;
-        padding: 0 1rem;
+        padding: 0 0.7rem;
         background-color: $color-red;
         border-radius: 10px;
         color: $color-white;

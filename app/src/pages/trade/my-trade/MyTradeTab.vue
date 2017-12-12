@@ -23,6 +23,9 @@ export default {
             msg: 'my-trade',
             selected: '1'
         }
+    },
+    created: function () {
+        this.selected = this.$route.path.indexOf('historylist') ? '2' : '1';
     }
 }
 </script>

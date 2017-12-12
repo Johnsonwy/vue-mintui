@@ -1,3 +1,9 @@
+/*
+ * @Author: shixinghao 
+ * @Date: 2017-12-12 10:24:56 
+ * @Last Modified by: shixinghao
+ * @Last Modified time: 2017-12-12 10:25:26
+ */
 import Vue from 'vue';
 import router from '../router';
 
@@ -13,3 +19,17 @@ Vue.directive('go', {
         })
     }
 });
+
+/**
+ * 正负红绿样式
+ * <span v-red-green="value">
+ */
+Vue.directive('red-green', {
+    bind: function (el, binding) {
+        if (binding.value >= 0) {
+            el.setAttribute('class', 'color-red');
+        } else {
+            el.setAttribute('class', 'color-green');
+        }
+    }
+})
