@@ -1,6 +1,6 @@
 <template>
-    <div class="trade-list" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">
-        <mt-loadmore style="margin-bottom:60px" :top-method="loadTop" ref="loadmore" topDropText="正在加载数据" :bottom-all-loaded="allLoaded" :bottom-method="loadBottom">
+    <div class="trade-history-list" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">
+        <mt-loadmore style="padding-bottom:60px" :top-method="loadTop" ref="loadmore" topDropText="正在加载数据" :bottom-all-loaded="allLoaded" :bottom-method="loadBottom">
             <div class="trade-list-item" v-for="(trade,index) in tradeList" :key="trade.id" :class="{'border-green':totalTradeList[index] - trade.wfPercent<0}">
                 <div class="item-title-wrap">
                     <span class="title-name">{{trade.product.productName}}</span>
@@ -13,11 +13,11 @@
                     <ul class="line clearfix">
                         <li>
                             <span>操盘资金</span>
-                            <span>{{trade.wfPercent|number('0.00')}}</span>
+                            <span class="color-black">{{trade.wfPercent|number('0.00')}}</span>
                         </li>
                         <li>
                             <span>风险保证金</span>
-                            <span>{{trade.capitalAmount|number('0.00')}}</span>
+                            <span class="color-black">{{trade.capitalAmount|number('0.00')}}</span>
                         </li>
                     </ul>
                     <div>
@@ -113,7 +113,9 @@ export default {
 
 <style lang="scss">
 @import "../../../scss/variables";
-.trade-list {
+.trade-history-list {
+  margin-top: 90px;
+  -webkit-overflow-scrolling: touch;
   .trade-list-item {
     border-right: 0.3rem solid $color-red;
     position: relative;

@@ -2,7 +2,7 @@
     <div class="my-trade">
         <mt-header fixed title="我的交易"></mt-header>
         <!-- navbar -->
-        <mt-navbar v-model="selected">
+        <mt-navbar class="second-nav" v-model="selected">
             <mt-tab-item id="1">
                 <router-link :to="'/tab/mytrade/list'">当前列表</router-link>
             </mt-tab-item>
@@ -31,5 +31,12 @@ export default {
 </script>
 
 <style lang="scss">
-
+.my-trade {
+  .second-nav {
+    position: fixed;
+    top: 40px;
+    z-index: 1;
+    width: 100%;
+  }
+}
 </style>

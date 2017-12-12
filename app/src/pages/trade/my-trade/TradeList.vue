@@ -1,7 +1,7 @@
 <template>
     <div class="trade-list" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">
         <mt-loadmore style="margin-bottom:60px" :top-method="loadTop" ref="loadmore" topDropText="正在加载数据" :bottom-all-loaded="allLoaded" :bottom-method="loadBottom">
-            <div class="trade-list-item" v-for="trade in tradeList" :key="trade.id">
+            <div class="trade-list-item" v-for="(trade,index) in tradeList" :key="trade.id">
                 <div class="item-title-wrap">
                     <span class="title-name">{{trade.product.productName}}</span>
                     <span class="title-status">操盘中</span>
@@ -11,20 +11,19 @@
                     <ul class="line clearfix">
                         <li>
                             <span>操盘资金</span>
-                            <span>{{1300000|number('0.00')}}</span>
+                            <span class="color-black">{{1300000|number('0.00')}}</span>
                         </li>
                         <li>
                             <span>风险保证金</span>
-                            <span>3000.00</span>
+                            <span class="color-black">3000.00</span>
                         </li>
                     </ul>
                     <div>
                         <span>累计盈亏</span>
-                        <span>130000.00 (+30%)</span>
+                        <span v-red-green="totalTradeList[index] - trade.wfPercent">{{(totalTradeList[index] - trade.wfPercent)|number('0.00')}} ({{(totalTradeList[index] - trade.wfPercent)/trade.wfPercent*100|number('0.00')|operator}}%)</span>
                     </div>
-                    <img src="../../../assets/images/trade/arrear.png" alt="">
+                    <img src="../../../assets/images/trade/arrear.png" alt="" v-if="trade.ArrearsCost>0">
                 </div>
-
             </div>
         </mt-loadmore>
         <!-- <router-link :to="'/mytrade/detail'">当前详情</router-link> -->
@@ -34,6 +33,7 @@
 <script>
 import { API, BUSS } from '../../../services/global';
 import { utilService } from '../../../services/utilService';
+import { bussService } from '../../../services/bussService';
 export default {
     name: 'trade-list',
     data () {
@@ -92,8 +92,15 @@ export default {
             });
         }
     },
-    created: function () {
-        // this.loadBottom();
+    computed: {
+        totalTradeList: function () {
+            let totalTradeList = [];
+            for (let i = 0; i < this.tradeList.length; i++) {
+                totalTradeList[i] = bussService.getTotalTrade(this.tradeList[i]);
+            }
+            console.log(123);
+            return totalTradeList;
+        }
     },
     mounted () {
         this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top;
@@ -104,6 +111,7 @@ export default {
 <style lang="scss">
 @import "../../../scss/variables";
 .trade-list {
+  margin-top: 90px;
   .trade-list-item {
     position: relative;
     font-size: 1.4rem;

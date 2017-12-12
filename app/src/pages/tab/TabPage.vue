@@ -52,7 +52,8 @@ export default {
 @import "../../scss/_variables.scss";
 .tabbar {
   background-color: $color-white;
-  border-top: 1px solid $color-greyD;
+  border-top: border($color-greyD);
+  border-bottom: border($color-greyD);
 }
 .tab-view {
   margin-top: 40px;
