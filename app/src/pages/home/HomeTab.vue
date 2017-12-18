@@ -2,7 +2,7 @@
  * @Author: shixinghao 
  * @Date: 2017-12-09 11:44:54 
  * @Last Modified by: shixinghao
- * @Last Modified time: 2017-12-11 11:51:37
+ * @Last Modified time: 2017-12-18 16:18:39
  */
 <template>
     <div class="home">
@@ -160,7 +160,7 @@ export default {
   .mint-swipe-item img {
     width: 100%;
   }
-  padding-bottom: 1.5rem;
+  //   padding-bottom: 1.5rem;
   .home-active,
   .home-newcenter,
   .home-product-list {

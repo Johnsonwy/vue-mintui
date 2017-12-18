@@ -1,5 +1,5 @@
 <template>
-    <div class="apply-trade header-top">
+    <div class="apply-trade">
         <mt-header fixed title="申请合约2">
             <vv-header-back slot="left"></vv-header-back>
         </mt-header>
@@ -10,7 +10,7 @@
 <script>
 export default {
     name: 'apply-trade',
-    data() {
+    data () {
         return {
             msg: 'apply-trade'
         }

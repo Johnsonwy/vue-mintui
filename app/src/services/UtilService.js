@@ -2,7 +2,7 @@
  * @Author: shixinghao 
  * @Date: 2017-12-08 22:43:05 
  * @Last Modified by: shixinghao
- * @Last Modified time: 2017-12-11 10:57:37
+ * @Last Modified time: 2017-12-18 18:49:08
  */
 import Vue from 'vue';
 import {
@@ -34,9 +34,11 @@ export const utilService = {
         });
     },
     // 初始化加载mint infinite scroll
-    initScroll: function (refs) {
-        if (refs && refs.loadmore) {
-            refs.loadmore.onTopLoaded();
+    initScroll: function (refs, type, page) {
+        if (type && type == 'loadmore' && page > 1) {
+            refs.loadmore.onBottomLoaded();
+        } else {
+            refs.loadmore.onTopLoaded()
         }
     },
     // 错误信息 处理

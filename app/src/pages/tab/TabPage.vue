@@ -1,7 +1,7 @@
 <template>
     <div class="tab">
         <!-- 路由页 -->
-        <router-view class="tab-view" v-bind:class="{'tab-view-noheader':selected=='home'}"></router-view>
+        <router-view class="tab-view"></router-view>
         <!-- 底部tab -->
         <vv-tabbar v-model="selected">
             <vv-tab-item :id='tabs[0].id' :to="tabs[0].href">
@@ -56,10 +56,6 @@ export default {
   border-bottom: border($color-greyD);
 }
 .tab-view {
-  margin-top: 40px;
-  margin-bottom: 60px;
-}
-.tab-view-noheader {
-  margin-top: 0;
+  padding-bottom: 60px;
 }
 </style>

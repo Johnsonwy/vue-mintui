@@ -1,5 +1,5 @@
 <template>
-    <div class="trade header-top">
+    <div class="trade head-top">
         <mt-header fixed title="申请合约1"></mt-header>
         {{msg}}
         <div v-go="'/trade/applytrade'">下一步</div>
@@ -8,7 +8,7 @@
 
 <script>
 export default {
-    data() {
+    data () {
         return {
             msg: 'Trade'
         }

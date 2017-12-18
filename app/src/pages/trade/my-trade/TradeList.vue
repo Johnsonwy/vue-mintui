@@ -1,6 +1,6 @@
 <template>
-    <div class="trade-list" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">
-        <mt-loadmore style="margin-bottom:60px" :top-method="loadTop" ref="loadmore" topDropText="正在加载数据" :bottom-all-loaded="allLoaded" :bottom-method="loadBottom">
+    <div class="trade-list head-top2" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">
+        <mt-loadmore class="tab-bottom" :top-method="loadTop" ref="loadmore" topDropText="正在加载数据" :bottom-all-loaded="allLoaded" :bottom-method="loadBottom">
             <div class="trade-list-item" v-for="(trade,index) in tradeList" :key="trade.id">
                 <div class="item-title-wrap">
                     <span class="title-name">{{trade.product.productName}}</span>
@@ -43,7 +43,7 @@ export default {
                 pageSize: BUSS.PAGE_SIZE,
                 type: BUSS.TRADE_LIST_TYPE
             },
-            allLoaded: false,//true 不加载
+            allLoaded: true,//true 不加载
             tradeList: [],
             wrapperHeight: 0
         }
@@ -58,6 +58,7 @@ export default {
         },
         loadTop: function () {
             console.log('top');
+            this.allLoaded = false;
             this.tradeListForm.page = 1;
             this.tradeList = [];
             this.getTradeList().then((data) => {
@@ -81,12 +82,10 @@ export default {
                     this.tradeListForm.page++;
                     this.tradeList = this.tradeList.concat(data.tradeList.resultList);
                 }
-                window.scrollTo(0, 0);
-                this.$refs.loadmore.onBottomLoaded()
+                utilService.initScroll(this.$refs, 'bottom', this.page);
                 utilService.closeLoading();
             }).catch(error => {
                 this.allLoaded = true;
-                this.$refs.loadmore.onBottomLoaded()
                 utilService.closeLoading();
                 utilService.showError(error);
             });
@@ -98,11 +97,12 @@ export default {
             for (let i = 0; i < this.tradeList.length; i++) {
                 totalTradeList[i] = bussService.getTotalTrade(this.tradeList[i]);
             }
-            console.log(123);
             return totalTradeList;
         }
     },
-    mounted () {
+    mounted: function () {
+        console.log(document.documentElement.clientHeight);
+        console.log(this.$refs.wrapper.getBoundingClientRect().top);
         this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top;
     }
 }
@@ -111,7 +111,6 @@ export default {
 <style lang="scss">
 @import "../../../scss/variables";
 .trade-list {
-  margin-top: 90px;
   .trade-list-item {
     position: relative;
     font-size: 1.4rem;

@@ -2,7 +2,7 @@
  * @Author: shixinghao 
  * @Date: 2017-12-12 10:24:56 
  * @Last Modified by: shixinghao
- * @Last Modified time: 2017-12-12 10:25:26
+ * @Last Modified time: 2017-12-18 16:12:50
  */
 import Vue from 'vue';
 import router from '../router';
