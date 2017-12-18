@@ -63,6 +63,7 @@
                     <img v-if="advert.product.pzType==1" src="../../assets/images/home/product2.png" alt="">
                     <img v-if="advert.product.pzType==5||advert.product.pzType==9" src="../../assets/images/home/product3.png" alt="">
                     <img v-if="advert.product.pzType==6" src="../../assets/images/home/product4.png" alt="">
+                    <img v-if="advert.product.pzType!==0&&advert.product.pzType!==1&&advert.product.pzType!==5&&advert.product.pzType!==9&&advert.product.pzType!==6" src="../../assets/images/home/product4.png" alt="">
                     <div class="item-wrap">
                         <div class="font-14 font-bold color-red">{{advert.name}}</div>
                         <div class="font-12 color-grey">{{advert.slogan}}</div>

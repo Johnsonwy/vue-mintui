@@ -80,3 +80,6 @@ npm run start //启动
 第一次接触Vue，之前学习大漠穷秋老师的[NiceFish](https://gitee.com/mumu-osc/NiceFish)(安利一波)，现在2个框架都体验下，给自己一个深刻体会。
 
 看了2天的api，感觉vue真是*接地气*，各种百度一堆结果，也是选中vue做这个demo的一个大理由，想想angular2开发各种google（心酸），不得不承认**vue整个社区**对初学者的开发的帮助。
+
+# 简单演示
+![./1.gif](简单演示)
