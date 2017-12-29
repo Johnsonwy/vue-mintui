@@ -1,3 +1,9 @@
+/*
+ * @Author: shixinghao 
+ * @Date: 2017-12-25 16:07:41 
+ * @Last Modified by: shixinghao
+ * @Last Modified time: 2017-12-27 10:51:21
+ */
 const path = require('path');
 
 function resolve(dir) {
@@ -8,7 +14,7 @@ module.exports = {
     // context: path.resolve(__dirname, '../'),
     entry: {
         app: './src/main.js',
-        vendor: ["babel-polyfill", 'vue', 'vue-router', 'mint-ui', 'axios']
+        vendor: ["babel-polyfill", 'vue', 'vue-router', 'vuex', 'mint-ui', 'axios']
     },
     output: {
         filename: '[name].bundle.js',

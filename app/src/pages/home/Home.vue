@@ -1,19 +1,10 @@
-/*
- * @Author: shixinghao 
- * @Date: 2017-12-09 11:44:54 
- * @Last Modified by: shixinghao
- * @Last Modified time: 2017-12-18 16:18:39
- */
 <template>
     <div class="home">
         <mt-loadmore :top-method="loadTop" ref="loadmore" topDropText="正在加载数据">
             <!-- banner -->
             <mt-swipe :auto="2000" :style="{height:bannerHeight}">
-                <mt-swipe-item :style="{height:bannerHeight}">
-                    <img src="//img.alicdn.com/simba/img/TB1tVKfXwxQ7KJjSZFLSuwdjpXa.jpg_q50.jpg" alt="">
-                </mt-swipe-item>
-                <mt-swipe-item :style="{height:bannerHeight}">
-                    <img src="//gw.alicdn.com/imgextra/TB2TksRhznD8KJjSspbXXbbEXXa_!!45-0-luban.jpg_q50.jpg" alt="">
+                <mt-swipe-item :style="{height:bannerHeight}" v-for="(banner,index) in banners" :key="index">
+                    <img :src="banner.attrValue" :alt="banner.title">
                 </mt-swipe-item>
             </mt-swipe>
             <!-- 活动 -->
@@ -63,9 +54,9 @@
                     <img v-if="advert.product.pzType==1" src="../../assets/images/home/product2.png" alt="">
                     <img v-if="advert.product.pzType==5||advert.product.pzType==9" src="../../assets/images/home/product3.png" alt="">
                     <img v-if="advert.product.pzType==6" src="../../assets/images/home/product4.png" alt="">
-                    <img v-if="advert.product.pzType!==0&&advert.product.pzType!==1&&advert.product.pzType!==5&&advert.product.pzType!==9&&advert.product.pzType!==6" src="../../assets/images/home/product4.png" alt="">
+                    <img v-if="advert.product.pzType==15" src="../../assets/images/home/product5.png" alt="">
                     <div class="item-wrap">
-                        <div class="font-14 font-bold color-red">{{advert.name}}</div>
+                        <div class="font-14 font-bold color-red item-title">{{advert.name}}</div>
                         <div class="font-12 color-grey">{{advert.slogan}}</div>
                     </div>
                     <div class="item-wrap2">
@@ -75,45 +66,6 @@
                         <i class="icon icon-more1 color-grey"></i>
                     </div>
                 </div>
-                <!-- <div class="product-list-item">
-                    <img src="../../assets/images/home/product2.png" alt="">
-                    <div class="item-wrap">
-                        <div class="font-14 font-bold color-red">日日升</div>
-                        <div class="font-12 color-grey">放大十倍收益</div>
-                    </div>
-                    <div class="item-wrap2">
-                        <span class="font-40 color-red">6~10
-                            <span class="font-12">倍杠杆</span>
-                        </span>
-                        <i class="icon icon-more1 color-grey"></i>
-                    </div>
-                </div>
-                <div class="product-list-item">
-                    <img src="../../assets/images/home/product3.png" alt="">
-                    <div class="item-wrap">
-                        <div class="font-14 font-bold color-red">月月翻</div>
-                        <div class="font-12 color-grey">按月配更优惠</div>
-                    </div>
-                    <div class="item-wrap2">
-                        <span class="font-40 color-red">6~10
-                            <span class="font-12">倍杠杆</span>
-                        </span>
-                        <i class="icon icon-more1 color-grey"></i>
-                    </div>
-                </div>
-                <div class="product-list-item">
-                    <img src="../../assets/images/home/product4.png" alt="">
-                    <div class="item-wrap">
-                        <div class="font-14 font-bold color-red">至尊惠</div>
-                        <div class="font-12 color-grey">月息低至0.8%</div>
-                    </div>
-                    <div class="item-wrap2">
-                        <span class="font-40 color-red">6~10
-                            <span class="font-12">倍杠杆</span>
-                        </span>
-                        <i class="icon icon-more1 color-grey"></i>
-                    </div>
-                </div> -->
             </div>
         </mt-loadmore>
     </div>
@@ -121,41 +73,49 @@
 
 <script>
 import { utilService } from '../../services/utilService.js';
-import { API } from '../../services/global.js';
-
+import { bussService } from '../../services/bussService';
+import { API, BUSS } from '../../services/global.js';
 export default {
     // name: 'Home',
     data () {
         return {
             bannerHeight: utilService.getHeightByDeviceWidth(),
-            adverts: []
+            adverts: [],
+            banners: []
         }
     },
     methods: {
         loadTop () {
-            this.$http.syncAjax({
+            this.$http.asyncAjax([{
                 url: API.product_show_get,
                 data: {
                     type: 0
                 }
-            }).then((data) => {
-                this.adverts = data.adverts;
+            }, {
+                url: API.cms_getbanner_post,
+                prefix: '.cms',
+                method: 'post',
+                data: { adspaceId: BUSS.CMS_INDEX_ADSID }
+            }]).then((data) => {
+                utilService.initScroll(this.$refs);
+                this.adverts = data[0].adverts;
+                this.banners = data[1].jDtos;
                 utilService.closeLoading();
             }).catch(error => {
+                utilService.initScroll(this.$refs);
                 utilService.closeLoading();
                 utilService.showError(error);
             });
-            utilService.initScroll(this.$refs);
         }
     },
     created () {
-        this.loadTop()
+        this.loadTop();
     }
 }
 </script>
 
 <style lang="scss">
-@import "../../scss/_variables.scss";
+@import "../../scss/common/_variables.scss";
 .home {
   .mint-swipe-item img {
     width: 100%;
@@ -253,6 +213,9 @@ export default {
       .item-wrap {
         display: inline-block;
         margin-left: 1.5rem;
+        .item-title {
+          margin-bottom: 0.8rem;
+        }
       }
       .item-wrap2 {
         right: 1.5rem;

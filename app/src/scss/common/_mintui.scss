@@ -2635,10 +2635,19 @@
     background-color: $color-white;
     color: $color-black;
     border-bottom: border($color-greyD);
+    height: 45px;
+    .mint-header-title {
+        font-size: 1.8rem;
+    }
 }
 
-.mint-navbar .mint-tab-item.is-selected {
-    border-color: $color-red;
-    color: $color-red;
-    margin-bottom: 0;
+.mint-navbar {
+    .mint-tab-item {
+        border-bottom: 3px solid $color-greyD;
+    }
+    .mint-tab-item.is-selected {
+        border-color: $color-red;
+        color: $color-red;
+        margin-bottom: 0;
+    }
 }

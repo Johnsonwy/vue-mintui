@@ -20,7 +20,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "../../scss/_variables.scss";
+@import "../../scss/common/_variables.scss";
 .tab-item {
   display: block;
   padding: 10px 0;

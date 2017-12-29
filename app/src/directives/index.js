@@ -2,7 +2,7 @@
  * @Author: shixinghao 
  * @Date: 2017-12-12 10:24:56 
  * @Last Modified by: shixinghao
- * @Last Modified time: 2017-12-18 16:12:50
+ * @Last Modified time: 2017-12-29 16:39:17
  */
 import Vue from 'vue';
 import router from '../router';
@@ -12,9 +12,10 @@ import router from '../router';
  * <li v-go="'/active/center'"></li>
  */
 Vue.directive('go', {
-    bind: function (el, binding) {
+    bind: function (el, binding, vnode) {
         el.addEventListener('click', function () {
-            router.push(binding.value);
+            // console.log(binding.value);
+            vnode.context.$router.push(binding.value);
             // window.location.href = binding.value || '/';
         })
     }
@@ -26,10 +27,24 @@ Vue.directive('go', {
  */
 Vue.directive('red-green', {
     bind: function (el, binding) {
+        const core_rspace = /\s+/;
+        let setClass = " " + el.className + " ";
         if (binding.value >= 0) {
-            el.setAttribute('class', 'color-red');
+            setClass = setClass + 'color-red';
         } else {
-            el.setAttribute('class', 'color-green');
+            setClass = setClass + 'color-green';
         }
+        el.className = setClass;
+    }
+})
+
+/** 
+ * 全屏高度
+ * <div v-whole-screen>
+ */
+Vue.directive('whole-screen', {
+    bind: function (el) {
+        const screenHeight = window.innerHeight;
+        el.style['min-height'] = screenHeight + 'px';
     }
 })

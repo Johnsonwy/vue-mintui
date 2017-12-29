@@ -1,12 +1,13 @@
+
 <template>
     <div class="tab">
-        <!-- 路由页 -->
+        <!-- 路由页面 -->
         <router-view class="tab-view"></router-view>
         <!-- 底部tab -->
         <vv-tabbar v-model="selected">
             <vv-tab-item :id='tabs[0].id' :to="tabs[0].href">
                 <img src="../../assets/images/icon/home.png" alt="" slot="icon" v-if="tabs[0].id!=selected">
-                <img src="../../assets/images/icon/home2.png" alt="" slot="icon" v-if="tabs[0].id==selected">{{tabs[0].name}}{{selected}}
+                <img src="../../assets/images/icon/home2.png" alt="" slot="icon" v-if="tabs[0].id==selected">{{tabs[0].name}}
             </vv-tab-item>
             <vv-tab-item :id='tabs[1].id' :to="tabs[1].href">
                 <img src="../../assets/images/icon/trade.png" alt="" slot="icon" v-if="tabs[1].id!=selected">
@@ -35,27 +36,34 @@ export default {
         }
     },
     methods: {
+        // 根据当前路由，更新tabbar样式
+        initTabarActive: function () {
+            for (let i = 0; i < tabs.length; i++) {
+                if (this.$route.path.indexOf(tabs[i].href) != -1) {
+                    this.selected = tabs[i].id;
+                    return;
+                }
+            }
+        }
     },
     created: function () {
         console.log('init Tab router');
-        for (let i = 0; i < tabs.length; i++) {
-            if (this.$route.path.indexOf(tabs[i].href) != -1) {
-                this.selected = tabs[i].id;
-                return;
-            }
-        }
+        this.initTabarActive();
+    },
+    beforeUpdate: function () {
+        this.initTabarActive();
     }
-};
+}
 </script>
 
 <style lang="scss">
-@import "../../scss/_variables.scss";
-.tabbar {
-  background-color: $color-white;
-  border-top: border($color-greyD);
-  border-bottom: border($color-greyD);
-}
-.tab-view {
-  padding-bottom: 60px;
+@import "../../scss/common/_variables.scss";
+.tab {
+  // 底部空隙
+  .tab-view {
+    padding-bottom: 60px;
+  }
 }
 </style>
+
+

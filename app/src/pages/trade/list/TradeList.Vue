@@ -1,11 +1,11 @@
 <template>
-    <div class="trade-history-list" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">
-        <mt-loadmore style="padding-bottom:60px" :top-method="loadTop" ref="loadmore" topDropText="正在加载数据" :bottom-all-loaded="allLoaded" :bottom-method="loadBottom">
-            <div class="trade-list-item" v-for="(trade,index) in tradeList" :key="trade.id" :class="{'border-green':totalTradeList[index] - trade.wfPercent<0}">
+    <div class="trade-list" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">
+        <mt-loadmore class="loadmore-bottom" :top-method="loadTop" ref="loadmore" topDropText="正在加载数据" :bottom-all-loaded="allLoaded" :bottom-method="loadBottom">
+            <div class="trade-list-item" v-for="(trade,index) in tradeList" :key="trade.id" v-go="{path:'/trade/detail',query:{tradeId:trade.id}}">
                 <div class="item-title-wrap">
                     <span class="title-name">{{trade.product.productName}}</span>
                     <span class="title-status">操盘中</span>
-                    <span class="title-date">{{trade.firstTradeDate|date}} 至 {{trade.realEndDate|date}}
+                    <span class="title-date">{{trade.firstTradeDate|date}} 至 {{trade.endTradeDate|date}}
                         <i class="icon icon-more1"></i>
                     </span>
                 </div>
@@ -13,7 +13,7 @@
                     <ul class="line clearfix">
                         <li>
                             <span>操盘资金</span>
-                            <span class="color-black">{{trade.wfPercent|number('0.00')}}</span>
+                            <span class="color-black">{{totalTradeList[index]|number('0.00')}}</span>
                         </li>
                         <li>
                             <span>风险保证金</span>
@@ -22,12 +22,13 @@
                     </ul>
                     <div>
                         <span>累计盈亏</span>
-                        <span v-red-green="totalTradeList[index] - trade.wfPercent">{{(totalTradeList[index] - trade.wfPercent)|number('0.00')}} ({{(totalTradeList[index] - trade.wfPercent)|profitHistoryPercent(trade.capitalAmount)|number('0.00')|operator}}%)</span>
+                        <span v-red-green="totalTradeList[index] - trade.wfPercent">{{(totalTradeList[index] - trade.wfPercent)|number('0.00')}} ({{(totalTradeList[index] - trade.wfPercent)/trade.wfPercent*100|number('0.00')|operator}}%)</span>
                     </div>
+                    <!-- 欠费 -->
+                    <img src="../../../assets/images/trade/arrear.png" alt="" v-if="trade.ArrearsCost>0">
                 </div>
             </div>
         </mt-loadmore>
-        <!-- <router-link :to="'/mytrade/detail'">当前详情</router-link> -->
     </div>
 </template>
 
@@ -42,7 +43,7 @@ export default {
             tradeListForm: {
                 page: 1,
                 pageSize: BUSS.PAGE_SIZE,
-                type: BUSS.TRADE_HISTORYLIST_TYPE
+                type: BUSS.TRADE_LIST_TYPE
             },
             allLoaded: false,//true 不加载
             tradeList: [],
@@ -58,21 +59,20 @@ export default {
             })
         },
         loadTop: function () {
-            console.log('top');
+            this.allLoaded = false;
             this.tradeListForm.page = 1;
             this.tradeList = [];
             this.getTradeList().then((data) => {
-                this.$refs.loadmore.onTopLoaded();
                 this.tradeList = this.tradeList.concat(data.tradeList.resultList);
+                utilService.initScroll(this.$refs);
                 utilService.closeLoading();
             }).catch(error => {
-                his.$refs.loadmore.onTopLoaded();
+                utilService.initScroll(this.$refs);
                 utilService.closeLoading();
                 utilService.showError(error);
             });
         },
         loadBottom: function () {
-            console.log('loadBottom');
             this.allLoaded = true;
             this.getTradeList().then((data) => {
                 if (data.tradeList.totalPage < this.tradeListForm.page) {
@@ -82,11 +82,11 @@ export default {
                     this.tradeListForm.page++;
                     this.tradeList = this.tradeList.concat(data.tradeList.resultList);
                 }
-                this.$refs.loadmore.onBottomLoaded()
+                utilService.initScroll(this.$refs, 'loadmore', this.tradeListForm.page);
                 utilService.closeLoading();
             }).catch(error => {
-                this.allLoaded = true;
-                this.$refs.loadmore.onBottomLoaded()
+                this.allLoaded = false;
+                utilService.initScroll(this.$refs, 'loadmore', this.tradeListForm.page);
                 utilService.closeLoading();
                 utilService.showError(error);
             });
@@ -98,76 +98,18 @@ export default {
             for (let i = 0; i < this.tradeList.length; i++) {
                 totalTradeList[i] = bussService.getTotalTrade(this.tradeList[i]);
             }
-            console.log(123);
             return totalTradeList;
         }
     },
-    created () {
-        // this.loadBottom();
-    },
-    mounted () {
-        this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top;
+    mounted: function () {
+        this.wrapperHeight = utilService.setLoadmoreHeight(this.$refs);
     }
 }
 </script>
 
-<style lang="scss">
-@import "../../../scss/variables";
-.trade-history-list {
-  margin-top: 90px;
-  -webkit-overflow-scrolling: touch;
-  .trade-list-item {
-    border-right: 0.3rem solid $color-red;
-    position: relative;
-    font-size: 1.4rem;
-    background-color: $color-white;
-    margin-bottom: 1rem;
-    border-top: border($color-greyD);
-    border-bottom: border($color-greyD);
-    &.border-green {
-      border-right: 0.3rem solid $color-green;
-    }
-    .item-title-wrap {
-      padding: 1.5rem 0;
-      padding-right: 1.5rem;
-      margin-left: 1.5rem;
-      font-size: 1.2rem;
-      border-bottom: border($color-greyD);
-      .title-name {
-        font-size: 1.5rem;
-      }
-      .title-status {
-        margin-left: 0.5rem;
-        padding: 0 0.7rem;
-        background-color: $color-greyA6;
-        border-radius: 10px;
-        color: $color-white;
-        font-size: 1.2rem;
-      }
-      .title-date {
-        color: $color-grey;
-        float: right;
-        font-size: 1.2rem;
-      }
-    }
-    .item-content-wrap {
-      padding: 1.5rem 1.5rem;
-      color: $color-grey;
-      ul.line {
-        padding-bottom: 1.5rem;
-        li {
-          float: left;
-          width: 50%;
-        }
-      }
-      img {
-        position: absolute;
-        right: 0;
-        bottom: 0;
-        height: 4.5rem;
-        width: 4.5rem;
-      }
-    }
-  }
+<style lang="scss" scoped>
+@import "../../../scss/trade/_list.scss";
+.trade-list {
+  @extend .trade-list;
 }
 </style>

@@ -1,32 +1,32 @@
 <template>
-    <div class="trade-list head-top2" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">
-        <mt-loadmore class="tab-bottom" :top-method="loadTop" ref="loadmore" topDropText="正在加载数据" :bottom-all-loaded="allLoaded" :bottom-method="loadBottom">
-            <div class="trade-list-item" v-for="(trade,index) in tradeList" :key="trade.id">
+    <div class="trade-history-list" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">
+        <mt-loadmore class="loadmore-bottom" :top-method="loadTop" ref="loadmore" topDropText="正在加载数据" :bottom-all-loaded="allLoaded" :bottom-method="loadBottom">
+            <div class="trade-list-item" v-for="(trade,index) in tradeList" :key="trade.id" :class="{'border-green':totalTradeList[index] - trade.wfPercent<0}">
                 <div class="item-title-wrap">
                     <span class="title-name">{{trade.product.productName}}</span>
                     <span class="title-status">操盘中</span>
-                    <span class="title-date">2017-12-11 至 2017-12-11</span>
+                    <span class="title-date">{{trade.firstTradeDate|date}} 至 {{trade.realEndDate|date}}
+                        <i class="icon icon-more1"></i>
+                    </span>
                 </div>
                 <div class="item-content-wrap">
                     <ul class="line clearfix">
                         <li>
                             <span>操盘资金</span>
-                            <span class="color-black">{{1300000|number('0.00')}}</span>
+                            <span class="color-black">{{trade.wfPercent|number('0.00')}}</span>
                         </li>
                         <li>
                             <span>风险保证金</span>
-                            <span class="color-black">3000.00</span>
+                            <span class="color-black">{{trade.capitalAmount|number('0.00')}}</span>
                         </li>
                     </ul>
                     <div>
                         <span>累计盈亏</span>
-                        <span v-red-green="totalTradeList[index] - trade.wfPercent">{{(totalTradeList[index] - trade.wfPercent)|number('0.00')}} ({{(totalTradeList[index] - trade.wfPercent)/trade.wfPercent*100|number('0.00')|operator}}%)</span>
+                        <span v-red-green="totalTradeList[index] - trade.wfPercent">{{(totalTradeList[index] - trade.wfPercent)|number('0.00')}} ({{(totalTradeList[index] - trade.wfPercent)|profitHistoryPercent(trade.capitalAmount)|number('0.00')|operator}}%)</span>
                     </div>
-                    <img src="../../../assets/images/trade/arrear.png" alt="" v-if="trade.ArrearsCost>0">
                 </div>
             </div>
         </mt-loadmore>
-        <!-- <router-link :to="'/mytrade/detail'">当前详情</router-link> -->
     </div>
 </template>
 
@@ -41,9 +41,9 @@ export default {
             tradeListForm: {
                 page: 1,
                 pageSize: BUSS.PAGE_SIZE,
-                type: BUSS.TRADE_LIST_TYPE
+                type: BUSS.TRADE_HISTORYLIST_TYPE
             },
-            allLoaded: true,//true 不加载
+            allLoaded: false,//true 不加载
             tradeList: [],
             wrapperHeight: 0
         }
@@ -57,8 +57,6 @@ export default {
             })
         },
         loadTop: function () {
-            console.log('top');
-            this.allLoaded = false;
             this.tradeListForm.page = 1;
             this.tradeList = [];
             this.getTradeList().then((data) => {
@@ -72,7 +70,6 @@ export default {
             });
         },
         loadBottom: function () {
-            console.log('loadBottom');
             this.allLoaded = true;
             this.getTradeList().then((data) => {
                 if (data.tradeList.totalPage < this.tradeListForm.page) {
@@ -82,10 +79,11 @@ export default {
                     this.tradeListForm.page++;
                     this.tradeList = this.tradeList.concat(data.tradeList.resultList);
                 }
-                utilService.initScroll(this.$refs, 'bottom', this.page);
+                utilService.initScroll(this.$refs, 'loadmore', this.tradeListForm.page);
                 utilService.closeLoading();
             }).catch(error => {
                 this.allLoaded = true;
+                utilService.initScroll(this.$refs, 'loadmore', this.tradeListForm.page);
                 utilService.closeLoading();
                 utilService.showError(error);
             });
@@ -100,64 +98,24 @@ export default {
             return totalTradeList;
         }
     },
-    mounted: function () {
-        console.log(document.documentElement.clientHeight);
-        console.log(this.$refs.wrapper.getBoundingClientRect().top);
-        this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top;
+    created () {
+        // this.loadBottom();
+    },
+    mounted () {
+        this.wrapperHeight = utilService.setLoadmoreHeight(this.$refs);
     }
 }
 </script>
 
-<style lang="scss">
-@import "../../../scss/variables";
-.trade-list {
+<style lang="scss" scoped>
+@import "../../../scss/common/variables";
+@import "../../../scss/trade/_list.scss";
+.trade-history-list {
+  @extend .trade-list;
   .trade-list-item {
-    position: relative;
-    font-size: 1.4rem;
-    background-color: $color-white;
-    margin-bottom: 1rem;
-    border-top: border($color-greyD);
-    border-bottom: border($color-greyD);
-    .item-title-wrap {
-      padding: 1.5rem 0;
-      padding-right: 1.5rem;
-      margin-left: 1.5rem;
-      font-size: 1.2rem;
-      border-bottom: border($color-greyD);
-      .title-name {
-        font-size: 1.5rem;
-      }
-      .title-status {
-        margin-left: 0.5rem;
-        padding: 0 0.7rem;
-        background-color: $color-red;
-        border-radius: 10px;
-        color: $color-white;
-        font-size: 1.2rem;
-      }
-      .title-date {
-        color: $color-grey;
-        float: right;
-        font-size: 1.2rem;
-      }
-    }
-    .item-content-wrap {
-      padding: 1.5rem 1.5rem;
-      color: $color-grey;
-      ul.line {
-        padding-bottom: 1.5rem;
-        li {
-          float: left;
-          width: 50%;
-        }
-      }
-      img {
-        position: absolute;
-        right: 0;
-        bottom: 0;
-        height: 4.5rem;
-        width: 4.5rem;
-      }
+    border-right: 0.3rem solid $color-red;
+    &.border-green {
+      border-right: 0.3rem solid $color-green;
     }
   }
 }
