@@ -18,6 +18,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import "../../scss/common/_variables.scss";
 .tabbar {
   right: 0;
   bottom: 0;
@@ -28,5 +29,8 @@ export default {
   display: -ms-flexbox;
   display: flex;
   text-align: center;
+  background-color: $color-white;
+  border-top: border($color-greyD);
+  border-bottom: border($color-greyD);
 }
 </style>

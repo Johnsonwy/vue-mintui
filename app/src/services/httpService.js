@@ -2,19 +2,17 @@
  * @Author: shixinghao 
  * @Date: 2017-12-09 21:54:00 
  * @Last Modified by: shixinghao
- * @Last Modified time: 2017-12-11 14:43:29
+ * @Last Modified time: 2017-12-28 18:29:06
  */
 import axios from 'axios';
 import qs from 'qs';
 import {
     utilService
 } from './utilService.js';
+
 import {
-    token
-} from '../mock/token.js';
-console.log(token);
-import {
-    SYSTEM
+    SYSTEM,
+    API
 } from './global.js';
 import {
     Indicator
@@ -32,11 +30,17 @@ var instance = axios.create({
 
 // request拦截器
 instance.interceptors.request.use(function (config) {
-    // console.log(config);
-    config.url = config.url + SYSTEM.PREFIX_URL;
-    config.data = qs.stringify(config.data)
-    utilService.setLocalStorage('token', token);
-    config.headers['token'] = utilService.getLocalStorage('token');
+    config.url = config.url + (config.prefix ? config.prefix : SYSTEM.PREFIX_URL);
+    // 资讯接口
+    if (config.prefix && config.prefix === SYSTEM.PREFIX_URL_NEW) {
+        config.headers = {};
+    } else {
+        config.headers['token'] = utilService.getLocalStorage('token');
+        if (config.method !== 'post') {
+            config.params = config.data;
+        }
+        config.data = qs.stringify(config.data);
+    }
     return config;
 }, function (error) {
     return Promise.reject(error);
@@ -44,8 +48,15 @@ instance.interceptors.request.use(function (config) {
 
 // response拦截器
 instance.interceptors.response.use(function (response) {
-    console.log(response.data);
-    return response.data;
+    // java || cms
+    if (response.data.status == 'true' || response.data.success || !(response.data.status == 'true' || response.data.success) && !response.data.respCode) {
+        return response.data;
+    } else if (response.data.respCode) {
+        console.log(response.data);
+        return Promise.reject(new Error(response.data.respMessage || API.TEXT.CMS_SERVER_ERROR));
+    } else {
+        return Promise.reject(new Error(response.data.resultMsg));
+    }
 }, function (error) {
     return Promise.reject(error);
 });
@@ -64,18 +75,40 @@ instance.asyncAjax = async function (requestArr) {
         requestHttpArr[requestArr.length] = await new Promise((resolve, reject) => {
             setTimeout(() => {
                 resolve('request done! ');
-            }, 2000);
+            }, 500);
         })
-        console.log(requestHttpArr);
-        return await Promise.all(requestHttpArr);
+        return new Promise((resolve, reject) => {
+            const promiseMap = Promise.all(requestHttpArr);
+            let promiseResults = [];
+            Promise.all(requestHttpArr).then((data) => {
+                for (var index in data) {
+                    promiseResults.push(data[index]);
+                }
+                // 关闭loading
+                utilService.closeLoading();
+                resolve(promiseResults);
+            }, (error) => {
+                utilService.closeLoading();
+                reject(error);
+            })
+        });
     } else {
-        console.log(requestArr);
-        return await this.request(requestArr);
+        return new Promise((resolve, reject) => {
+            const promise = this.request(requestArr);
+            promise.then(data => {
+                utilService.closeLoading();
+                resolve(data);
+            }, error => {
+                utilService.closeLoading();
+                reject(error);
+            })
+        })
+        // return await this.request(requestArr)
     }
 }
 
 /**
- * 同步请求
+ * 同步请求 TODO：请求参数配置
  * @param {*请求配置，同axios} requestArr 
  */
 instance.syncAjax = async function (requestArr) {
@@ -88,12 +121,12 @@ instance.syncAjax = async function (requestArr) {
         await new Promise((resolve, reject) => {
             setTimeout(() => {
                 resolve('request done! ');
-            }, 2000);
+            }, 3000);
         })
-        console.log(requestHttpArr);
+        // console.log(requestHttpArr);
         return requestHttpArr;
     } else {
-        console.log(requestArr);
+        // console.log(requestArr);
         return await this.request(requestArr);
     }
 }

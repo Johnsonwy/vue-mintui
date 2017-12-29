@@ -1,22 +1,20 @@
 
 <template>
-    <div class="user header-top">
-        <mt-header fixed title="我的"></mt-header>
-    </div>
+    <div>{{msg}}</div>
 </template>
 
 <script>
 export default {
-    name: 'User',
+    name: 'ApplyTrade',
     data: function () {
         return {
-            msg: 'User'
+            msg: 'ApplyTrade'
         }
     },
     methods: {
     },
     created: function () {
-        console.log('init User router');
+        console.log('init Home router');
     }
 }
 </script>

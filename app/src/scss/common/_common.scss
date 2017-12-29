@@ -1,11 +1,22 @@
+/*
+ * @Author: shixinghao 
+ * @Date: 2017-12-25 16:45:24 
+ * @Last Modified by: shixinghao
+ * @Last Modified time: 2017-12-29 10:07:02
+ */
+
 @import "./variables.scss";
+// 全局基础css
 html {
+    // 1rem=10px;
     font-size: 62.5%;
     background-color: $color-greyF2;
 }
 
 body {
     margin: 0;
+    color: $color-black;
+    font-size: 1.4rem;
 }
 
 a:link,
@@ -57,14 +68,15 @@ a:active {
     color: $color-green;
 }
 
-.head-top {
-    padding-top: 40px;
+// 全局布局css
+.header-top {
+    padding-top: 45px;
 }
 
-.head-top2 {
+.header2-top {
     padding-top: 90px;
 }
 
-.tab-bottom {
+.loadmore-bottom {
     padding-bottom: 60px;
 }

@@ -2,7 +2,7 @@
  * @Author: shixinghao 
  * @Date: 2017-12-12 09:31:44 
  * @Last Modified by: shixinghao
- * @Last Modified time: 2017-12-12 10:03:14
+ * @Last Modified time: 2017-12-28 15:03:31
  */
 import Vue from 'vue';
 import numeral from 'numeral';
@@ -37,7 +37,7 @@ Vue.filter('number', function (value, format) {
     return numeral(value).format(format);
 })
 
-// 日期格式化
+// 日期格式化 2017-12-28 15:02:50 => 2017.12.28
 Vue.filter('date', function (value) {
     if (!value) {
         return '';
