@@ -24,7 +24,7 @@
                     </div>
                 </li>
                 <li class="trade-simple">
-                    <div class="title">当前盈亏</div>
+                    <div class="title">合约总资产</div>
                     <div class="value">99281.00
                         <span class="profit">+3.9%</span>
                     </div>
@@ -78,18 +78,19 @@
                     <img class="point" src="../../../assets/images/trade/panel-point.png" alt="箭头">
                 </div>
             </div>
-            <mt-popup v-model="popupVisible" position="bottom">
-                <div>
-                    <div>追加本金</div>
-                    <div>利润提取</div>
-                    <div>停牌股转合约</div>
-                </div>
-            </mt-popup>
-            <div class="trade-operate-wrap">
-                <button class="operate">
-                    <i class="icon icon-caidan"></i> 更多操作</button>
-                <button class="operate">申请结算</button>
-                <button class="operate-trade">交易委托</button>
+            <div class="trade-operator-wrap">
+
+                <button class="operator">
+                    <i class="icon icon-caidan"></i>更多操作
+                    <div class="trade-operator-list">
+                        <div class="operator-list-item">追加本金</div>
+                        <div class="operator-list-item">申请结算</div>
+                        <div class="operator-list-item">停牌股转合约</div>
+                        <div class="arrow"></div>
+                    </div>
+                </button>
+                <button class="operator">申请结算</button>
+                <button class="operator-trade">交易委托</button>
             </div>
         </div>
     </div>
@@ -100,8 +101,8 @@
 /*
  * @Author: shixinghao 
  * @Date: 2017-12-28 15:29:54 
- * @Last Modified by: shixinghao
- * @Last Modified time: 2017-12-29 17:27:13
+ * @Last Modified by: shixinghaoshixinghao
+ * @Last Modified time: 2018-01-01 21:43:37
  */
 import { API } from '../../../services/global';
 import { tradeService } from '../../../services/tradeService';
@@ -217,7 +218,7 @@ export default {
       }
     }
   }
-  .trade-operate-wrap {
+  .trade-operator-wrap {
     position: fixed;
     bottom: 0;
     right: 0;
@@ -225,8 +226,42 @@ export default {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    .operate,
-    .operate-trade {
+    // 操作列表按钮
+    .trade-operator-list {
+      bottom: 100%;
+      top: auto;
+      position: absolute;
+      background-color: #fff;
+      margin-bottom: 10px;
+      border: border($color-greyD);
+      border-radius: 5px;
+
+      background-color: $color-white;
+      .operator-list-item {
+        border-bottom: border($color-greyD);
+        padding: 1rem 0;
+        margin: 0 1rem;
+        text-align: center;
+      }
+      .arrow {
+        width: 0px;
+        height: 0;
+        border: solid transparent;
+        border-width: 10px;
+        border-top-color: $color-greyD;
+        border-width: 0.6rem;
+        position: absolute;
+        left: 50%;
+        right: 50%;
+        margin-left: -5px;
+      }
+      div:nth-last-of-type(2) {
+        border: none;
+      }
+    }
+    .operator,
+    .operator-trade {
+      position: relative;
       background-color: $color-white;
       padding: 0;
       border: none;
@@ -234,12 +269,12 @@ export default {
       border-right: border($color-red);
       font-size: 1.6rem;
       color: $color-red;
-      padding: 1.6rem;
+      padding: 1.6rem 0;
       -webkit-box-flex: 1;
       -ms-flex: 1;
       flex: 1;
     }
-    .operate-trade {
+    .operator-trade {
       background-color: $color-red;
       color: $color-white;
     }
